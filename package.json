@@ -1,0 +1,20 @@
+{
+  "name": "Moore",
+  "version": "1.0.0",
+  "description": "An open-source, general purpose discord bot with a lot of commands and utilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "cd dist && node index",
+    "format": "prettier -w .",
+    "lint": "eslint . --no-error-on-unmatched-pattern",
+    "build": "prisma generate && pnpm run build:files && pnpm run postbuild",
+    "build:files": "tsc -p .",
+    "build:watch": "tsc -p . --watch",
+    "postbuild": "pnpm run copy:files",
+    "copy:files": "cp *.json dist/app",
+    "copy:dotfiles": "cp .env dist/app"
+  },
+  "keywords": [],
+  "author": "Mulforma",
+  "license": "Apache-2.0"
+}
