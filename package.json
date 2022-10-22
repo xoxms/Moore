@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An open-source, general purpose discord bot with a lot of commands and utilities",
   "main": "src/index.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
     "start": "cd dist && node index",
     "format": "prettier -w .",
