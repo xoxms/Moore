@@ -8,6 +8,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^5.40.1
   '@typescript-eslint/parser': ^5.40.1
   discord.js: '13.10'
+  dotenv: ^16.0.3
   eslint: '8.22'
   typescript: ^4.8.4
 
@@ -19,6 +20,7 @@ dependencies:
   '@typescript-eslint/eslint-plugin': 5.40.1_7l7rruczv4daimtr3qpeu6yv5e
   '@typescript-eslint/parser': 5.40.1_yv3nvntfnealqm77uomj2fi4ki
   discord.js: 13.10.3
+  dotenv: 16.0.3
   eslint: 8.22.0
   typescript: 4.8.4
 
@@ -542,6 +544,11 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       esutils: 2.0.3
+    dev: false
+
+  /dotenv/16.0.3:
+    resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
     dev: false
 
   /escape-string-regexp/4.0.0:
