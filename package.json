@@ -16,5 +16,9 @@
   },
   "keywords": [],
   "author": "Mulforma",
-  "license": "Apache-2.0"
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@sapphire/framework": "^3.1.3",
+    "discord.js": "13.10"
+  }
 }
