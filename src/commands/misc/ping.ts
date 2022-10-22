@@ -11,7 +11,7 @@ export class PingCommand extends Command {
     );
   }
   public async chatInputRun(interaction: Command.ChatInputInteraction) {
-    const msg = await interaction.reply({ content: "Pinging...", ephemeral: true, fetchReply: true });
+    const msg = await interaction.reply({ content: "Pinging...", fetchReply: true });
 
     if (isMessageInstance(msg)) {
       const diff = msg.createdTimestamp - interaction.createdTimestamp;

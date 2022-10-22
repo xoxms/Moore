@@ -1,4 +1,5 @@
 import "dotenv/config";
+import "@sapphire/plugin-logger/register";
 import { SapphireClient } from "@sapphire/framework";
 
 const client = new SapphireClient({ intents: ["GUILDS", "GUILD_MESSAGES"] });
