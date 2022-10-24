@@ -32,9 +32,9 @@
 - [Special Thanks](#special-thanks)
 
 ## About
-Moore is an experimental discord bot based on [Sapphire Framework](https://sapphirejs.dev).
+Moore is an experimental discord bot based on [discordx](https://discordx.js.org).
 The bot is currently in development, it will be a successor to [Zelar](https://zelar.mulforma.space) once
-Sapphire Framework support [Discord.js v14](https://discord.js.org/) and stable enough.
+the bot is stable enough.
 This project focusing on object-oriented programming, clean code, and good documentation, as
 the original project is too large, messy, and hard to maintain.
 Like the original, this project is also open-source and free to use with no limitations and will not

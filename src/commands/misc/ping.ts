@@ -3,7 +3,11 @@ import { ApplicationCommandRegistry, Command } from "@sapphire/framework";
 
 export class PingCommand extends Command {
   public constructor(context: Command.Context, options: Command.Options) {
-    super(context, { ...options });
+    super(context, {
+      ...options,
+      name: "ping",
+      description: "Replies with pong!",
+    });
   }
   public override registerApplicationCommands(registry: ApplicationCommandRegistry) {
     registry.registerChatInputCommand((builder) =>
