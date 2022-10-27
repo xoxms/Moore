@@ -13,7 +13,9 @@ export class PingCommand {
       fetchReply: true,
     });
 
-    const timeDiff = (sent.createdTimestamp - interaction.createdTimestamp);
-    await interaction.editReply(`🏓Pong!\nRound-trip latency: ${timeDiff} ms\nWebsocket heartbeat: ${Math.round(bot.ws.ping)} ms`);
+    const timeDiff = sent.createdTimestamp - interaction.createdTimestamp;
+    await interaction.editReply(
+      `🏓Pong!\nRound-trip latency: ${timeDiff} ms\nWebsocket heartbeat: ${Math.round(bot.ws.ping)} ms`,
+    );
   }
 }

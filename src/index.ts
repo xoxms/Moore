@@ -13,11 +13,7 @@ const BOT_LOG = debuglog("bot");
 export const bot = new Client({
   botId: CLIENT_ID,
   botGuilds: NODE_ENV ? [process.env.GUILD_ID!] : [],
-  intents: [
-    GatewayIntentBits.Guilds,
-    GatewayIntentBits.GuildVoiceStates,
-    GatewayIntentBits.GuildMessages
-  ],
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages],
   silent: false,
   simpleCommand: {
     prefix: "mx!",

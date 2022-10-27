@@ -9,15 +9,17 @@ import type { DApplicationCommand } from "discordx";
 @Category("Miscellaneous")
 @SlashGroup({
   description: "Shows a list of all commands or info about a specific command.",
-  name: "help"
+  name: "help",
 })
 @SlashGroup("help")
 export class HelpCommand {
   @Slash({ description: "Show all available commands" })
   async all(interaction: CommandInteraction) {
-    const commands = MetadataStorage.instance.applicationCommandSlashesFlat.map((cmd: DApplicationCommand & ICategory) => {
-      return { description: cmd.description, name: cmd.name, category: cmd.category };
-    });
+    const commands = MetadataStorage.instance.applicationCommandSlashesFlat.map(
+      (cmd: DApplicationCommand & ICategory) => {
+        return { description: cmd.description, name: cmd.name, category: cmd.category };
+      },
+    );
     const categories = new Set(commands.map((c) => c.category));
     const pages = Array.from(categories).map((category, idx) => {
       const categoryCommands = commands.filter((c) => c.category === category);
