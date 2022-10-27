@@ -6,7 +6,7 @@
     </h2>
   </a>
   <p align="center">
-    Experimental discord bot based on Sapphire Framework, a successor to <a href="https://zelar.mulforma.space">Zelar</a>
+    Experimental discord bot based on discordx, a successor to <a href="https://zelar.mulforma.space">Zelar</a>
   </p>
   <div style="display: flex; flex-wrap: wrap; justify-items: center; justify-content: center">
     <img src="https://wakatime.com/badge/user/5cb7cd14-ac7e-4fc0-9f81-6036760cb6a3/project/43c4defc-5916-4bc2-aca5-0683f99c9e2d.svg" />
@@ -68,4 +68,4 @@ Moore is open-sourced software licensed under the [Apache License 2.0](/LICENSE)
 - [Tinnaphat Tin Somsang (Tinarskii)](https://www.tinarskii.com) - Author of Zelar, founder of [Mulforma](https://mulforma.space)
 - You! - Star this repository if you like it!
 
-<img src="https://i.ibb.co/rdNwHF9/MAINTAINED-BY-MULFORMA.png">
+<a href="https://mulforma.space/"><img src="https://i.ibb.co/rdNwHF9/MAINTAINED-BY-MULFORMA.png"></a>
