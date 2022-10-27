@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "An open-source, general purpose discord bot with a lot of commands and utilities",
   "main": "src/index.js",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "start": "cd dist && node index",
     "format": "prettier -w .",
@@ -18,10 +18,15 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@discordjs/builders": "^1.3.0",
+    "@discordx/importer": "^1.1.10",
+    "@discordx/pagination": "^3.3.1",
+    "@discordx/utilities": "^5.1.0",
     "@types/node": "^18.11.3",
     "@typescript-eslint/eslint-plugin": "^5.40.1",
     "@typescript-eslint/parser": "^5.40.1",
+    "discord-api-types": "^0.37.14",
     "discord.js": "~14.6.0",
+    "discordx": "^11.4.0",
     "dotenv": "^16.0.3",
     "eslint": "8.22",
     "typescript": "^4.8.4"
