@@ -28,7 +28,7 @@ export class HelpCommand {
           iconURL: interaction.user.avatarURL()!,
         })
         .setThumbnail(bot.user!.displayAvatarURL())
-        .setTitle(`[Page ${idx + 1}/${categories.size}] Category: ${category!}`);
+        .setTitle(`[Page ${idx + 1}/${categories.size}] Category: ${category as string}`);
 
       categoryCommands.forEach((c) => {
         embed.addFields({ name: `/${c.name}`, value: c.description });
