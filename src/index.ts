@@ -42,10 +42,11 @@ bot.on("interactionCreate", (interaction: Interaction) => {
 async function main() {
   await importx(`${dirname(import.meta.url)}/{events,commands}/**/*.{ts,js}`);
 
-  if (!process.env.MOORE_TOKEN || !process.env.MOORE_DEV_TOKEN) {
+  if (!TOKEN) {
     throw Error("Could not find MOORE_TOKEN or MOORE_DEV_TOKEN in your environment");
   }
-  await bot.login(TOKEN!);
+
+  await bot.login(TOKEN);
 }
 
 main();
