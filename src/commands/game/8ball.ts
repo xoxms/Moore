@@ -13,8 +13,8 @@ export class Magic8Ball {
       type: ApplicationCommandOptionType.String,
       required: true,
     })
-      question: string,
-      interaction: CommandInteraction,
+    question: string,
+    interaction: CommandInteraction,
   ): Promise<void> {
     const answers = [
       "Signs point to yes.",
@@ -33,8 +33,10 @@ export class Magic8Ball {
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle("Magic 8 Ball")
-          .setDescription(`**Question:** ${question}\n**Answer:** ${answers[Math.floor(Math.random() * answers.length)]}`)
+          .setTitle("🔮Magic 8 Ball")
+          .setDescription(
+            `**Question:** ${question}\n**Answer:** ${answers[Math.floor(Math.random() * answers.length)]}`,
+          )
           .setColor(Colors.Blue),
       ],
     });

@@ -28,8 +28,10 @@ export class DanbooruCommand {
       await interaction.reply("This channel is not Age-Restricted!");
       return;
     }
-    
-    const { data } = await axios.get(`https://danbooru.donmai.us/posts.json?tags=${tags}&page=${Math.floor(Math.random() * 100) + 1}&limit=1`);
+
+    const { data } = await axios.get(
+      `https://danbooru.donmai.us/posts.json?tags=${tags}&page=${Math.floor(Math.random() * 100) + 1}&limit=1`,
+    );
     await interaction.reply({
       embeds: [
         new EmbedBuilder()

@@ -21,8 +21,12 @@ export class GelbooruCommand {
       await interaction.reply("This channel is not Age-Restricted!");
       return;
     }
-    
-    const { data } = await axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=1&pid=${Math.floor(Math.random() * 100) + 1}&tags=${tags.split(",").join("+")}`);
+
+    const { data } = await axios.get(
+      `https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=1&pid=${
+        Math.floor(Math.random() * 100) + 1
+      }&tags=${tags.split(",").join("+")}`,
+    );
 
     if (!data.post) {
       await interaction.reply("No results found!");

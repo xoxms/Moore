@@ -21,7 +21,7 @@ export class Rule34Command {
       await interaction.reply("This channel is not Age-Restricted!");
       return;
     }
-    
+
     const { data } = await axios.get(`https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${tags}&json=1`);
     const image = data[Math.floor(Math.random() * data.length)];
 
