@@ -5,10 +5,10 @@ import { ActivityType, GatewayIntentBits } from "discord-api-types/v10";
 import { debuglog } from "util";
 import type { Interaction } from "discord.js";
 
+export const botLog = debuglog("bot");
 const NODE_ENV = process.env.NODE_ENV === "production";
 const TOKEN = NODE_ENV ? process.env.MOORE_TOKEN : process.env.MOORE_DEV_TOKEN;
 const CLIENT_ID = NODE_ENV ? process.env.MOORE_CLIENT_ID : process.env.MOORE_DEV_CLIENT_ID;
-const BOT_LOG = debuglog("bot");
 
 export const bot = new Client({
   botId: CLIENT_ID,
@@ -21,6 +21,14 @@ export const bot = new Client({
 });
 
 bot.once("ready", async () => {
+  // To clear all guild commands, uncomment this line,
+  // This is useful when moving from guild commands to global commands
+  // It must only be executed once
+  //
+  // await bot.clearApplicationCommands(
+  //   ...bot.guilds.cache.map((g) => g.id)
+  // );
+
   await bot.guilds.fetch();
   await bot.initApplicationCommands();
 
@@ -28,7 +36,7 @@ bot.once("ready", async () => {
     type: ActivityType.Watching,
   });
 
-  BOT_LOG("Logged in as %s", bot.user?.tag);
+  botLog("Logged in as %s", bot.user?.tag);
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {

@@ -1,9 +1,9 @@
-import { Discord, MetadataStorage, Slash, SlashGroup } from "discordx";
-import { EmbedBuilder, Colors, CommandInteraction } from "discord.js";
+import type { DApplicationCommand } from "discordx";
+import { Discord, MetadataStorage, Slash, SlashGroup, SlashOption } from "discordx";
+import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder } from "discord.js";
 import { Category, ICategory } from "@discordx/utilities";
 import { Pagination } from "@discordx/pagination";
 import { bot } from "../../index.js";
-import type { DApplicationCommand } from "discordx";
 
 @Discord()
 @Category("Miscellaneous")
@@ -17,7 +17,11 @@ export class HelpCommand {
   async all(interaction: CommandInteraction) {
     const commands = MetadataStorage.instance.applicationCommandSlashesFlat.map(
       (cmd: DApplicationCommand & ICategory) => {
-        return { description: cmd.description, name: cmd.name, category: cmd.category };
+        return {
+          description: cmd.description,
+          name: cmd.group ? `${cmd.group} (${cmd.name})` : cmd.name,
+          category: cmd.category,
+        };
       },
     );
     const categories = new Set(commands.map((c) => c.category));
@@ -40,5 +44,51 @@ export class HelpCommand {
 
     const pagination = new Pagination(interaction, pages);
     await pagination.send();
+  }
+
+  @Slash({ description: "Show info about a specific command" })
+  async command(
+    @SlashOption({
+      description: "Command to get info from",
+      name: "command",
+      type: ApplicationCommandOptionType.String,
+      required: true,
+    })
+    command: string,
+    interaction: CommandInteraction,
+  ): Promise<void> {
+    const cmd = MetadataStorage.instance.applicationCommandSlashesFlat.find(
+      (c: DApplicationCommand & ICategory) => c.name === command,
+    ) as DApplicationCommand & ICategory;
+    if (!cmd) {
+      await interaction.reply({
+        content: `Command \`${command}\` not found.`,
+        ephemeral: true,
+      });
+      return;
+    }
+
+    const embed = new EmbedBuilder()
+      .setColor(Colors.Blue)
+      .setFooter({
+        text: "You can send `/help all` to get a list of all commands.",
+        iconURL: interaction.user.avatarURL()!,
+      })
+      .setThumbnail(bot.user!.displayAvatarURL())
+      .setTitle(cmd.name.toUpperCase())
+      .addFields({
+        name: "Description",
+        value: cmd.description,
+      })
+      .addFields({
+        name: "Category",
+        value: String(cmd.category),
+      })
+      .addFields({
+        name: "Options",
+        value: cmd.options?.map((o) => `\`${o.name}\` - ${o.description}`).join("\n") || "None",
+      });
+
+    await interaction.reply({ embeds: [embed] });
   }
 }
