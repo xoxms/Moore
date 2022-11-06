@@ -67,7 +67,7 @@ Thank you for considering contributing to Moore! The contribution guide can be f
 ## License
 Moore is open-sourced software licensed under the [Apache License 2.0](/LICENSE).
 
-## Special Thanks
+## Authors & Special Thanks
 
 - [Tinnaphat Tin Somsang (Tinarskii)](https://www.tinarskii.com) - Author of Zelar, founder of [Mulforma](https://mulforma.space)
 - You! - Star this repository if you like it!
