@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://zelar.tinarskii.com/">
+  <a href="https://moore.mulforma.space/">
     <img src="assets/moore.png" width="128" />
     <h2 align="center">
       Moore

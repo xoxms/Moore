@@ -29,7 +29,7 @@ export class Rule34Command {
       embeds: [
         new EmbedBuilder()
           .setTitle(`Image from ${image.owner}`)
-          .setColor("#ffb6c1")
+          .setColor(Colors.Fuchsia)
           .setImage(image.file_url)
           .setFooter({ text: `rating: ${image.rating} | score: ${image.score}` })
           .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`),
