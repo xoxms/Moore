@@ -47,13 +47,13 @@ However, here are some of the features that will be implemented:
 - [x] Fun commands
 - [ ] Utility commands
 - [ ] Music commands
-- [ ] NSFW commands
-- [ ] Leveling system
+- [x] NSFW commands
 - [ ] Economy system
 
 With new addition that does not exist in the original project:
 
 - [ ] Web dashboard
+- [ ] Leveling system
 - [ ] Chatting Bot
 - [ ] Anti-spam system
 - [ ] And more TODOs...

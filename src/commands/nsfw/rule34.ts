@@ -4,10 +4,10 @@ import { Category } from "@discordx/utilities";
 import axios from "axios";
 
 @Discord()
-@Category("NSFW")
-export class DanbooruCommand {
-  @Slash({ description: "Get random gelbooru image", name: "gelbooru" })
-  async gelbooru(
+@Category("Age-Restricted")
+export class Rule34Command {
+  @Slash({ description: "Get random image from rule34.xxx", name: "rule34" })
+  async rule34(
     @SlashOption({
       name: "tags",
       description: "Tags to search (Seperated with commas)",
@@ -22,21 +22,17 @@ export class DanbooruCommand {
       return;
     }
     
-    const { data } = await axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=1&pid=${Math.floor(Math.random() * 100) + 1}&tags=${tags.split(",").join("+")}`);
-
-    if (!data.post) {
-      await interaction.reply("No results found!");
-      return;
-    }
+    const { data } = await axios.get(`https://rule34.xxx/index.php?page=dapi&s=post&q=index&tags=${tags}&json=1`);
+    const image = data[Math.floor(Math.random() * data.length)];
 
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle(`Image from ${data.post[0].owner}`)
-          .setColor(Colors.Fuchsia)
-          .setImage(data.post[0].file_url)
-          .setFooter({ text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` })
-          .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`),
+          .setTitle(`Image from ${image.owner}`)
+          .setColor("#ffb6c1")
+          .setImage(image.file_url)
+          .setFooter({ text: `rating: ${image.rating} | score: ${image.score}` })
+          .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`),
       ],
     });
   }

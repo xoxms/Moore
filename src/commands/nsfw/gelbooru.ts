@@ -4,17 +4,10 @@ import { Category } from "@discordx/utilities";
 import axios from "axios";
 
 @Discord()
-@Category("NSFW")
-export class DanbooruCommand {
-  public readonly rating = {
-    e: "explicit",
-    s: "safe",
-    q: "questionable",
-    u: "unknown",
-  };
-
-  @Slash({ description: "Get random danbooru image", name: "danbooru" })
-  async danbooru(
+@Category("Age-Restricted")
+export class GelbooruCommand {
+  @Slash({ description: "Get random gelbooru image", name: "gelbooru" })
+  async gelbooru(
     @SlashOption({
       name: "tags",
       description: "Tags to search (Seperated with commas)",
@@ -25,21 +18,25 @@ export class DanbooruCommand {
     interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
-      await interaction.reply("This channel is not NSFW!");
+      await interaction.reply("This channel is not Age-Restricted!");
       return;
     }
     
-    const { data } = await axios.get(`https://danbooru.donmai.us/posts.json?tags=${tags}&limit=1`);
+    const { data } = await axios.get(`https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&limit=1&pid=${Math.floor(Math.random() * 100) + 1}&tags=${tags.split(",").join("+")}`);
+
+    if (!data.post) {
+      await interaction.reply("No results found!");
+      return;
+    }
+
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle(`Image from ${data[0].tag_string_artist}`)
-          .setImage(data[0].file_url)
-          .setColor(Colors.Green)
-          .setURL(`https://danbooru.donmai.us/posts/${data[0].id}`)
-          .setFooter({
-            text: `rating: ${this.rating[data[0].rating as keyof typeof this.rating]} | score: ${data[0].score}`,
-          }),
+          .setTitle(`Image from ${data.post[0].owner}`)
+          .setColor(Colors.Fuchsia)
+          .setImage(data.post[0].file_url)
+          .setFooter({ text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` })
+          .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`),
       ],
     });
   }
