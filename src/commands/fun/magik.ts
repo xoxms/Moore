@@ -15,8 +15,8 @@ export class MagikCommand {
       type: ApplicationCommandOptionType.User,
       required: true,
     })
-      user: User,
-      interaction: CommandInteraction,
+    user: User,
+    interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
     const avatar = user.displayAvatarURL({ size: 512 });
