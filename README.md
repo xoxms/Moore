@@ -47,6 +47,7 @@ However, here are some of the features that will be implemented:
 - [x] Fun commands
 - [ ] Utility commands
 - [ ] Music commands
+- [ ] NSFW commands
 - [ ] Leveling system
 - [ ] Economy system
 
