@@ -1,5 +1,4 @@
-import type { CommandInteraction } from "discord.js";
-import { ApplicationCommandOptionType, User } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 
@@ -14,8 +13,8 @@ export class AvatarCommand {
       type: ApplicationCommandOptionType.User,
       required: true,
     })
-    user: User,
-    interaction: CommandInteraction,
+      user: User,
+      interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.reply({
       content: user.displayAvatarURL({ size: 4096 }),

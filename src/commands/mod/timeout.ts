@@ -70,12 +70,12 @@ export class TimeoutCommand {
       description: "Select a duration to timeout in minutes (0 for clear)", 
       required: false, 
       type: ApplicationCommandOptionType.Number, 
-    }) 
-      user: GuildMember, 
+    })
+      interaction: CommandInteraction,
+      user: GuildMember,
       reason = "Not specified", 
       duration = 0, 
-      interaction: CommandInteraction, 
-  ): Promise<void> { 
+  ): Promise<void> {
     this.selectedUser = user; 
     this.reason = reason; 
     this.duration = duration * 60000; 

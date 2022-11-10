@@ -11,7 +11,7 @@ export class MemeCommand {
     new ButtonBuilder().setLabel("NEXT").setCustomId("fetch_next_memes").setStyle(ButtonStyle.Primary),
   );
 
-  public static async fetchMemes(): Promise<unknown> {
+  public static async fetchMemes() {
     const { data } = await axios.get("https://meme-api.herokuapp.com/gimme");
     return data;
   }

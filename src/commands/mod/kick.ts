@@ -63,11 +63,11 @@ export class KickCommand {
       description: "Reason for kicking the user", 
       required: false, 
       type: ApplicationCommandOptionType.String, 
-    }) 
-      user: GuildMember, 
+    })
+      interaction: CommandInteraction,
+      user: GuildMember,
       reason = "Not specified", 
-      interaction: CommandInteraction, 
-  ): Promise<void> { 
+  ): Promise<void> {
     this.selectedUser = user; 
     this.reason = reason; 
  

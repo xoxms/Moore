@@ -21,9 +21,9 @@ export class DanbooruCommand {
       type: ApplicationCommandOptionType.String, 
       required: false, 
     }) 
-    tags = "", 
-    interaction: CommandInteraction, 
-  ): Promise<void> { 
+      interaction: CommandInteraction,
+      tags = "",
+  ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) { 
       await interaction.reply("This channel is not Age-Restricted!"); 
       return; 
