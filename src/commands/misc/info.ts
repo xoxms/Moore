@@ -1,6 +1,6 @@
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, GuildMember, User } from "discord.js";
+import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, GuildMember } from "discord.js";
 
 @Discord()
 @Category("Miscellaneous")
@@ -18,8 +18,8 @@ export class InfoCommand {
       type: ApplicationCommandOptionType.User,
       required: true,
     })
-    member: GuildMember,
-    interaction: CommandInteraction,
+      member: GuildMember,
+      interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.reply({
       embeds: [
