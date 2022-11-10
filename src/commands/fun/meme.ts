@@ -8,7 +8,7 @@ import axios from "axios";
 @Category("Fun")
 export class MemeCommand {
   public static buttonRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
-    new ButtonBuilder().setLabel("NEXT").setCustomId("next").setStyle(ButtonStyle.Primary),
+    new ButtonBuilder().setLabel("NEXT").setCustomId("fetch_next_memes").setStyle(ButtonStyle.Primary),
   );
 
   public static async fetchMemes(): Promise<any> {
@@ -16,7 +16,7 @@ export class MemeCommand {
     return data;
   }
 
-  @ButtonComponent({ id: "next" })
+  @ButtonComponent({ id: "fetch_next_memes" })
   async handler(interaction: ButtonInteraction): Promise<void> {
     await interaction.deferUpdate();
     const data = await MemeCommand.fetchMemes();

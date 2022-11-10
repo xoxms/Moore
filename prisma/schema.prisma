@@ -9,3 +9,50 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model Items {
+  id          Int   @id(map: "primary") @default(sequence())
+  name        String?  @db.String(255)
+  emoji       String?  @db.String(255)
+  description String?  @db.String(255)
+  type        String?  @db.String(255)
+  rarity      String?  @db.String(255)
+  usable          Boolean?
+  sellable        Boolean?
+  price           Int?
+}
+
+model Jobs {
+  name         String  @unique(map: "jobs_name_uindex") @db.String(255)
+  description  String? @unique(map: "jobs_description_uindex") @db.String(255)
+  income       Int
+  minimumLevel Int?
+}
+
+model Shop {
+  id          Int     @id(map: "primary") @default(sequence())
+  name        String? @db.String(255)
+  emoji       String? @db.String(255)
+  description String? @db.String(255)
+  price       Int?
+  rarity      String? @db.String(255)
+  type        String? @db.String(255)
+}
+
+model Server {
+  id        String @id(map: "primary") @db.String(255)
+  commandSettings Json?
+  roomSettings    Json?
+}
+
+model User {
+  serverId  String?
+  userId    String
+  coin      Int?
+  xp        Int?
+  level     Int?
+  jobs      String? @db.String(255)
+  timeout   Json?
+  inventory Json?
+  id        Int  @id(map: "primary") @default(sequence())
+}
