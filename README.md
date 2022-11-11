@@ -43,9 +43,8 @@ provide any paid features. The bot uses slash commands, so you need to enable th
 ## Features
 At the moment, Moore is still in development, so there are not many features implemented yet.
 However, here are some of the features that will be implemented:
-- [ ] Moderation commands
+- [x] Moderation commands
 - [x] Fun commands
-- [ ] Utility commands
 - [ ] Game commands
 - [ ] Search commands
 - [ ] Music commands
