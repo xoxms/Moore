@@ -2,6 +2,7 @@ import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { CommandInteraction, EmbedBuilder } from "discord.js";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import get from "axios";
 
 @Discord()
 @Category("Search")
@@ -23,10 +24,10 @@ export class DictionaryCommand {
     interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.deferReply();
-    const response = await fetch(
+    const response = await get(
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}?ui=en&definitions=true&synonyms=true&antonyms=true&examples=true&audio=true`,
     );
-    const data = await response.json();
+    const { data } = response;
     if (data?.title === "No Definitions Found") {
       await interaction.editReply({
         embeds: [
@@ -80,8 +81,8 @@ export class DictionaryCommand {
     word: string,
     interaction: CommandInteraction
   ): Promise<void> {
-    const response = await fetch(`https://api.urbandictionary.com/v0/define?term=${word}`);
-    const data = await response.json();
+    const response = await get(`https://api.urbandictionary.com/v0/define?term=${word}`);
+    const { data } = response;
     if (data?.list.length === 0) {
       await interaction.reply({
         embeds: [
