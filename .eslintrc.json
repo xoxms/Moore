@@ -11,14 +11,6 @@
     "sourceType": "module"
   },
   "rules": {
-    "indent": [
-      "error",
-      2,
-      {
-        "SwitchCase": 1,
-        "ignoredNodes": ["ConditionalExpression", "PropertyDefinition"]
-      }
-    ],
     "linebreak-style": ["error", "windows"],
     "quotes": ["error", "double"],
     "semi": ["error", "always"],

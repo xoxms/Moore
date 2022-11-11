@@ -7,13 +7,13 @@
   "scripts": {
     "start": "cd dist && node index",
     "start:watch": "cd dist && nodemon --delay 1000ms index",
-    "format": "prettier -w .",
-    "lint": "eslint . --no-error-on-unmatched-pattern",
-    "build": "pnpm run build:files && pnpm run copy:dotfiles",
-    "dev": "conc --kill-others \"pnpm run build:watch\" \"pnpm run start:watch\"",
-    "build:files": "tsc -p .",
+    "build": "tsc -p . && cp .env dist",
     "build:watch": "tsc -p . --watch",
-    "copy:dotfiles": "cp .env dist"
+    "dev": "conc --kill-others \"pnpm run build:watch\" \"pnpm run start:watch\"",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
+    "prettier": "prettier --write src/**/*.{js,ts}",
+    "prettier:check": "prettier --check src/**/*.{js,ts}"
   },
   "keywords": [],
   "author": "Mulforma",

@@ -10,14 +10,14 @@
   </p>
   <div style="display: flex; flex-wrap: wrap; justify-items: center; justify-content: center">
     <img src="https://wakatime.com/badge/user/5cb7cd14-ac7e-4fc0-9f81-6036760cb6a3/project/43c4defc-5916-4bc2-aca5-0683f99c9e2d.svg" />
-    <a href="https://github.com/mulforma/moore/pulse"><img src="https://img.shields.io/github/commit-activity/m/badges/shields" /></a>
-    <a href="https://www.codefactor.io/repository/github/mulforma/moore"><img src="https://www.codefactor.io/repository/github/mulforma/moore/badge" /></a>
+    <a href="https://github.com/Mulforma/Moore/pulse"><img src="https://img.shields.io/github/commit-activity/m/badges/shields" /></a>
+    <a href="https://www.codefactor.io/repository/github/Mulforma/Moore"><img src="https://www.codefactor.io/repository/github/Mulforma/Moore/badge" /></a>
     <img src="https://img.shields.io/node/v/discord.js?style=plastic" />
-    <img src="https://img.shields.io/github/license/mulforma/moore" />   
-    <img src="https://img.shields.io/github/languages/top/mulforma/moore" />
+    <img src="https://img.shields.io/github/license/Mulforma/Moore" />   
+    <img src="https://img.shields.io/github/languages/top/Mulforma/Moore" />
     <a href="https://tinvv.tech/discord/"><img src="https://img.shields.io/discord/828842616442454066" /></a>
-    <a href="https://deepsource.io/gh/mulforma/moore/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/mulforma/moore.svg/?label=active+issues&show_trend=true&token=QMU7qTxWjqwrQ5m1G50_SD5C"/></a>
-    <a href="https://deepsource.io/gh/mulforma/moore/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/mulforma/moore.svg/?label=resolved+issues&show_trend=true&token=QMU7qTxWjqwrQ5m1G50_SD5C"/></a>
+    <a href="https://deepsource.io/gh/Mulforma/Moore/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Mulforma/Moore.svg/?label=active+issues&show_trend=true&token=QMU7qTxWjqwrQ5m1G50_SD5C"/></a>
+    <a href="https://deepsource.io/gh/Mulforma/Moore/?ref=repository-badge}" target="_blank"><img alt="DeepSource" title="DeepSource" src="https://deepsource.io/gh/Mulforma/Moore.svg/?label=resolved+issues&show_trend=true&token=QMU7qTxWjqwrQ5m1G50_SD5C"/></a>
     <a href="/.github/CODE_OF_CONDUCT.md"><img src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg" /></a>
     <img src="https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=plastic" />
   </div>

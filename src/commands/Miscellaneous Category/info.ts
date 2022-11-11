@@ -18,8 +18,8 @@ export class InfoCommand {
       type: ApplicationCommandOptionType.User,
       required: true,
     })
-      member: GuildMember,
-      interaction: CommandInteraction,
+    member: GuildMember,
+    interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.reply({
       embeds: [

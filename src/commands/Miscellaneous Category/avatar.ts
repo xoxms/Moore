@@ -13,8 +13,8 @@ export class AvatarCommand {
       type: ApplicationCommandOptionType.User,
       required: true,
     })
-      user: User,
-      interaction: CommandInteraction,
+    user: User,
+    interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.reply({
       content: user.displayAvatarURL({ size: 4096 }),
