@@ -27,6 +27,7 @@ export class UnbanCommand {
             .setDescription("User may not exist or something else went *seriously* wrong")
             .setColor(Colors.Red),]
       });
+      return;
     }
 
     await interaction.reply({
