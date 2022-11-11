@@ -59,7 +59,7 @@ export class DictionaryCommand {
             { name: "Synonyms", value: wordDefinition.synonyms.join(", ") || "-" },
             { name: "Antonyms", value: wordDefinition.antonyms.join(", ") || "-" },
           ])
-          .setURL(wordData.phonetics[0].audio.replace("//", "https://"))
+          .setURL(wordData.phonetics[0]?.audio || "")
           .setColor("#0099ff")
           .setFooter({
             text: `Request by ${interaction.user.tag}`,
@@ -109,10 +109,10 @@ export class DictionaryCommand {
           .addFields([
             { name: "Example", value: wordData.example || "-" },
             { name: "Author", value: wordData.author || "-" },
-            { name: "Thumbs up", value: wordData.thumbs_up || "-" },
-            { name: "Thumbs down", value: wordData.thumbs_down || "-" },
+            { name: "Thumbs up", value: `${wordData.thumbs_up.toString()} votes` || "-" },
+            { name: "Thumbs down", value: `${wordData.thumbs_down.toString()} votes` || "-" },
           ])
-          .setURL(wordData.permalink)
+          .setURL(wordData.permalink || "")
           .setColor("#0099ff")
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,
