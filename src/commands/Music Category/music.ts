@@ -515,4 +515,91 @@ export class MusicCommand {
       ],
     });
   }
+
+  @Slash({ description: "Loop queue" })
+  async loop(interaction: CommandInteraction): Promise<void> {
+    const validate = await this.validateInteraction(interaction);
+    if (!validate) return;
+
+    const { queue } = validate;
+    queue.setLoop(!queue.loop);
+
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(`🔁 Loop queue is now ${queue.loop ? "on" : "off"}`)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
+    });
+  }
+
+  @Slash({ description: "Repeat current track" })
+  async repeat(interaction: CommandInteraction): Promise<void> {
+    const validate = await this.validateInteraction(interaction);
+    if (!validate) return;
+
+    const { queue } = validate;
+    queue.setRepeat(!queue.repeat);
+
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(`🔁 Repeat track is now ${queue.repeat ? "on" : "off"}`)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
+    });
+  }
+
+  @Slash({ description: "Set music volume" })
+  async volume(
+    @SlashOption({
+      description: "Amount of volume",
+      name: "volume",
+      type: ApplicationCommandOptionType.Number,
+      required: true,
+    })
+    volume: number,
+    interaction: CommandInteraction,
+  ): Promise<void> {
+    const validate = await this.validateInteraction(interaction);
+    if (!validate) return;
+
+    const { queue } = validate;
+    if (volume < 0 || volume > 100) {
+      await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("❌ Error")
+            .setDescription("Volume must be between 0 and 100")
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
+        ],
+      });
+      return;
+    }
+
+    queue.setVolume(volume);
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(`🔊 Volume set to ${volume}%`)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
+    });
+  }
 }
