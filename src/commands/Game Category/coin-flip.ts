@@ -32,7 +32,12 @@ export class CoinFlipCommand {
             { name: "Generated Number", value: String(genNum) },
             { name: "Seed", value: String(seed) },
           ])
-          .setColor([0, 255, 0]),
+          .setColor([0, 255, 0])
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }

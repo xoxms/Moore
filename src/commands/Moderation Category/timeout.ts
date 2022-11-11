@@ -89,7 +89,12 @@ export class TimeoutCommand {
           new EmbedBuilder()
             .setTitle("User cannot be timeout")
             .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red),
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       });
       return;
@@ -102,7 +107,10 @@ export class TimeoutCommand {
           .setDescription(`You are about to timeout <@${user.id}>`)
           .setColor(Colors.Red)
           .setThumbnail(user.displayAvatarURL())
-          .setFooter({ iconURL: interaction.user.displayAvatarURL(), text: `Requested by ${interaction.user.tag}` })
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
           .setTimestamp(),
       ],
       components: [TimeoutCommand.buttonRow],

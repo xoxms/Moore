@@ -40,7 +40,8 @@ export class GelbooruCommand {
           .setColor(Colors.Fuchsia)
           .setImage(data.post[0].file_url)
           .setFooter({ text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` })
-          .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`),
+          .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`)
+          .setTimestamp()
       ],
     });
   }

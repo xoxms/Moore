@@ -35,8 +35,9 @@ export class BotStatsCommand {
           .setColor([0, 153, 255])
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.avatarURL()!,
-          }),
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }
@@ -60,8 +61,9 @@ export class BotStatsCommand {
           .setThumbnail(bot.user!.displayAvatarURL())
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.avatarURL()!,
-          }),
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }

@@ -43,7 +43,12 @@ export class InfoCommand {
           ])
           .setThumbnail(member.user.avatarURL())
           .setColor(Colors.Blurple)
-          .setImage(member.user.banner ?? "https://i.redd.it/pyeuy7iyfw961.png"),
+          .setImage(member.user.banner ?? "https://i.redd.it/pyeuy7iyfw961.png")
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }
@@ -67,7 +72,12 @@ export class InfoCommand {
             { name: "✅ isVerified", value: server.verified.toString(), inline: true },
             { name: "🚨 mfaLevel", value: server.mfaLevel.toString(), inline: true },
           ])
-          .setThumbnail(<string>server.iconURL()),
+          .setThumbnail(<string>server.iconURL())
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }

@@ -32,7 +32,8 @@ export class Rule34Command {
           .setColor(Colors.Fuchsia)
           .setImage(image.file_url)
           .setFooter({ text: `rating: ${image.rating} | score: ${image.score}` })
-          .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`),
+          .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`)
+          .setTimestamp()
       ],
     });
   }

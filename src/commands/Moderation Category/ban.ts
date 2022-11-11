@@ -32,7 +32,12 @@ export class BanCommand {
           new EmbedBuilder()
             .setTitle("Something went wrong!")
             .setDescription("The user may not be bannable or something else went *seriously* wrong")
-            .setColor(Colors.Red),
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
         components: [],
       });
@@ -43,7 +48,12 @@ export class BanCommand {
         new EmbedBuilder()
           .setTitle("User banned")
           .setDescription(`Successfully banned <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``)
-          .setColor(Colors.Green),
+          .setColor(Colors.Green)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
       components: [],
     });
@@ -77,7 +87,12 @@ export class BanCommand {
           new EmbedBuilder()
             .setTitle("User not bannable")
             .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red),
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       });
       return;
@@ -90,7 +105,10 @@ export class BanCommand {
           .setDescription(`You are about to ban <@${user.id}>`)
           .setColor(Colors.Red)
           .setThumbnail(user.displayAvatarURL())
-          .setFooter({ iconURL: interaction.user.displayAvatarURL(), text: `Requested by ${interaction.user.tag}` })
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
           .setTimestamp(),
       ],
       components: [BanCommand.buttonRow],

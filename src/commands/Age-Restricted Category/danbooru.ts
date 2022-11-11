@@ -41,7 +41,8 @@ export class DanbooruCommand {
           .setURL(`https://danbooru.donmai.us/posts/${data[0].id}`)
           .setFooter({
             text: `rating: ${this.rating[data[0].rating as keyof typeof this.rating]} | score: ${data[0].score}`,
-          }),
+          })
+          .setTimestamp()
       ],
     });
   }

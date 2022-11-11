@@ -21,7 +21,18 @@ export class MemeCommand {
     await interaction.deferUpdate();
     const data = await MemeCommand.fetchMemes();
     await interaction.editReply({
-      embeds: [new EmbedBuilder().setTitle(data.title).setImage(data.url).setURL(data.postLink).setColor(Colors.Green)],
+      embeds: [
+        new EmbedBuilder()
+        .setTitle(data.title)
+        .setImage(data.url)
+        .setURL(data.postLink)
+        .setColor(Colors.Green)
+        .setFooter({
+          text:`Requested by ${interaction.user.tag}`,
+          iconURL: interaction.user.displayAvatarURL()
+        })
+        .setTimestamp(),
+      ],
       components: [MemeCommand.buttonRow],
     });
   }
@@ -30,7 +41,18 @@ export class MemeCommand {
   async meme(interaction: CommandInteraction): Promise<void> {
     const data = await MemeCommand.fetchMemes();
     await interaction.reply({
-      embeds: [new EmbedBuilder().setTitle(data.title).setImage(data.url).setURL(data.postLink).setColor(Colors.Green)],
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(data.title)
+          .setImage(data.url)
+          .setURL(data.postLink)
+          .setColor(Colors.Green)
+          .setFooter({
+            text:`Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL()
+          })
+          .setTimestamp(),
+      ],
       components: [MemeCommand.buttonRow],
     });
   }

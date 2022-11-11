@@ -37,7 +37,12 @@ export class Magic8Ball {
           .setDescription(
             `**Question:** ${question}\n**Answer:** ${answers[Math.floor(Math.random() * answers.length)]}`,
           )
-          .setColor(Colors.Blue),
+          .setColor(Colors.Blue)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }

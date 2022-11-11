@@ -1,4 +1,4 @@
-import { ApplicationCommandOptionType, CommandInteraction, User } from "discord.js";
+import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 
@@ -17,7 +17,17 @@ export class AvatarCommand {
     interaction: CommandInteraction,
   ): Promise<void> {
     await interaction.reply({
-      content: user.displayAvatarURL({ size: 4096 }),
+      embeds: [
+        new EmbedBuilder()
+          .setTitle(`🖼 Avatar of ${user.username}`)
+          .setImage(user.avatarURL()!)
+          .setColor(Colors.Green)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
       ephemeral: true,
     });
   }

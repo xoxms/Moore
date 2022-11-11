@@ -20,7 +20,11 @@ export class XkcdCommand {
           .setTitle(`#${data.num} - ${data.title}`)
           .setImage(data.img)
           .setDescription(data.alt)
-          .setFooter({ text: `${data.year} - ${data.month}/${data.day}`, iconURL: interaction.user.avatarURL()! }),
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
     });
   }

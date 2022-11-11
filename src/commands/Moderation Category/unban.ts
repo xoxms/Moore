@@ -25,7 +25,13 @@ export class UnbanCommand {
           new EmbedBuilder()
             .setTitle("Something went wrong!")
             .setDescription("User may not exist or something else went *seriously* wrong")
-            .setColor(Colors.Red),]
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
+        ],
       });
       return;
     }
@@ -35,7 +41,12 @@ export class UnbanCommand {
         new EmbedBuilder()
           .setTitle("User unbanned")
           .setDescription(`Successfully unbanned <@${user}>`)
-          .setColor(Colors.Green),
+          .setColor(Colors.Green)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
       components: [],
     });

@@ -1,9 +1,10 @@
 import { Discord, Guard, Slash, SlashOption } from "discordx";
-import { PermissionGuard } from "@discordx/utilities";
+import { Category, PermissionGuard } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { Colors, CommandInteraction, EmbedBuilder, TextChannel } from "discord.js";
 
 @Discord()
+@Category("Moderation")
 export class DeleteMessageCommand {
   @Slash({ name: "delete", description: "Delete message within 2 weeks old" })
   @Guard(PermissionGuard(["ManageMessages"]))
@@ -15,7 +16,7 @@ export class DeleteMessageCommand {
       type: ApplicationCommandOptionType.Number,
     })
     amount: number,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): Promise<void> {
     try {
       await (interaction.channel as TextChannel)?.bulkDelete(amount);
@@ -26,7 +27,7 @@ export class DeleteMessageCommand {
             .setTitle("Something went wrong!")
             .setDescription("I don't have permission to delete message or something else went *seriously* wrong")
             .setColor(Colors.Red),
-        ]
+        ],
       });
     }
 

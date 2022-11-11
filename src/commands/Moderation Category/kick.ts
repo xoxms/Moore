@@ -44,7 +44,12 @@ export class KickCommand {
         new EmbedBuilder()
           .setTitle("User kicked")
           .setDescription(`Successfully kicked <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``)
-          .setColor(Colors.Green),
+          .setColor(Colors.Green)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
       components: [],
     });
@@ -78,7 +83,12 @@ export class KickCommand {
           new EmbedBuilder()
             .setTitle("User not kickable")
             .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red),
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
         ],
       });
       return;
@@ -91,7 +101,10 @@ export class KickCommand {
           .setDescription(`You are about to kick <@${user.id}>`)
           .setColor(Colors.Red)
           .setThumbnail(user.displayAvatarURL())
-          .setFooter({ iconURL: interaction.user.displayAvatarURL(), text: `Requested by ${interaction.user.tag}` })
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
           .setTimestamp(),
       ],
       components: [KickCommand.buttonRow],
