@@ -13,8 +13,8 @@ export class CoinFlipCommand {
       type: ApplicationCommandOptionType.Integer,
       required: false,
     })
-    interaction: CommandInteraction,
     seed: number = new Date().getTime(),
+    interaction: CommandInteraction,
   ): Promise<void> {
     const randomNum = (seedVal: number) => {
       let seed = seedVal;

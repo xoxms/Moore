@@ -23,15 +23,15 @@ export class MemeCommand {
     await interaction.editReply({
       embeds: [
         new EmbedBuilder()
-        .setTitle(data.title)
-        .setImage(data.url)
-        .setURL(data.postLink)
-        .setColor(Colors.Green)
-        .setFooter({
-          text:`Requested by ${interaction.user.tag}`,
-          iconURL: interaction.user.displayAvatarURL()
-        })
-        .setTimestamp(),
+          .setTitle(data.title)
+          .setImage(data.url)
+          .setURL(data.postLink)
+          .setColor(Colors.Green)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
       ],
       components: [MemeCommand.buttonRow],
     });
@@ -48,8 +48,8 @@ export class MemeCommand {
           .setURL(data.postLink)
           .setColor(Colors.Green)
           .setFooter({
-            text:`Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL()
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp(),
       ],

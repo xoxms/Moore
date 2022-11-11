@@ -70,9 +70,9 @@ export class KickCommand {
       required: false,
       type: ApplicationCommandOptionType.String,
     })
-    interaction: CommandInteraction,
     user: GuildMember,
     reason = "Not specified",
+    interaction: CommandInteraction,
   ): Promise<void> {
     this.selectedUser = user;
     this.reason = reason;

@@ -1,6 +1,6 @@
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category, PermissionGuard } from "@discordx/utilities";
-import { Colors, CommandInteraction, EmbedBuilder, GuildMember, RoleManager, RoleResolvable } from "discord.js";
+import { Colors, CommandInteraction, EmbedBuilder, GuildMember, RoleResolvable } from "discord.js";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 
 @Discord()
@@ -52,7 +52,7 @@ export class RoleCommand {
       embeds: [
         new EmbedBuilder()
           .setTitle("Role given successfully")
-          .setDescription(`Successfully gave <@&${role}> to <@${user.id}>`)
+          .setDescription(`Successfully gave ${role} to <@${user.id}>`)
           .setColor(Colors.Green)
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,

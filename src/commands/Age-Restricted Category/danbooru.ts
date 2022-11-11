@@ -21,8 +21,8 @@ export class DanbooruCommand {
       type: ApplicationCommandOptionType.String,
       required: false,
     })
-    interaction: CommandInteraction,
     tags = "",
+    interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
       await interaction.reply("This channel is not Age-Restricted!");
@@ -42,7 +42,7 @@ export class DanbooruCommand {
           .setFooter({
             text: `rating: ${this.rating[data[0].rating as keyof typeof this.rating]} | score: ${data[0].score}`,
           })
-          .setTimestamp()
+          .setTimestamp(),
       ],
     });
   }

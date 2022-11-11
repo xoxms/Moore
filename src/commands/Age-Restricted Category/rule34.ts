@@ -14,8 +14,8 @@ export class Rule34Command {
       type: ApplicationCommandOptionType.String,
       required: false,
     })
-    interaction: CommandInteraction,
     tags = "",
+    interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
       await interaction.reply("This channel is not Age-Restricted!");
@@ -33,7 +33,7 @@ export class Rule34Command {
           .setImage(image.file_url)
           .setFooter({ text: `rating: ${image.rating} | score: ${image.score}` })
           .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`)
-          .setTimestamp()
+          .setTimestamp(),
       ],
     });
   }

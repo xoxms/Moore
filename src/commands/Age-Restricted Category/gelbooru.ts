@@ -14,8 +14,8 @@ export class GelbooruCommand {
       type: ApplicationCommandOptionType.String,
       required: false,
     })
-    interaction: CommandInteraction,
     tags = "",
+    interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
       await interaction.reply("This channel is not Age-Restricted!");
@@ -41,7 +41,7 @@ export class GelbooruCommand {
           .setImage(data.post[0].file_url)
           .setFooter({ text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` })
           .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`)
-          .setTimestamp()
+          .setTimestamp(),
       ],
     });
   }

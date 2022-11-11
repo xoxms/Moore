@@ -74,10 +74,10 @@ export class TimeoutCommand {
       required: false,
       type: ApplicationCommandOptionType.Number,
     })
-    interaction: CommandInteraction,
     user: GuildMember,
     reason = "Not specified",
     duration = 0,
+    interaction: CommandInteraction,
   ): Promise<void> {
     this.selectedUser = user;
     this.reason = reason;
