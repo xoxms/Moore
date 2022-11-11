@@ -45,11 +45,10 @@ At the moment, Moore is still in development, so there are not many features imp
 However, here are some of the features that will be implemented:
 - [x] Moderation commands
 - [x] Fun commands
-- [ ] Game commands
 - [x] Search commands
 - [x] Music commands
 - [x] NSFW commands
-- [ ] Economy system
+- [ ] Economy system / Game commands
 
 With new addition that does not exist in the original project:
 
