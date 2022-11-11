@@ -63,7 +63,7 @@ export class RoleCommand {
     });
   }
 
-  @Slash({ name: "remvoe", description: "Give a role from a user" })
+  @Slash({ name: "remove", description: "Give a role from a user" })
   @Guard(PermissionGuard(["ManageRoles"]))
   async remove(
     @SlashOption({
@@ -104,7 +104,7 @@ export class RoleCommand {
       embeds: [
         new EmbedBuilder()
           .setTitle("Role removed successfully")
-          .setDescription(`Successfully removed <@&${role}> from <@${user.id}>`)
+          .setDescription(`Successfully removed ${role} from <@${user.id}>`)
           .setColor(Colors.Green)
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,
