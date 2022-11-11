@@ -17,7 +17,18 @@ export class UnbanCommand {
     user: Snowflake,
     interaction: CommandInteraction,
   ): Promise<void> {
-    await interaction.guild?.members.unban(user);
+    try {
+      await interaction.guild?.members.unban(user);
+    } catch (error) {
+      await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("Something went wrong!")
+            .setDescription("User may not exist or something else went *seriously* wrong")
+            .setColor(Colors.Red),]
+      });
+    }
+
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
