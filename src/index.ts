@@ -40,6 +40,11 @@ bot.once("ready", async () => {
 });
 
 bot.on("interactionCreate", (interaction: Interaction) => {
+  if (interaction.isButton() || interaction.isSelectMenu()) {
+    if (interaction.customId.startsWith("discordx@pagination@")) {
+      return;
+    }
+  }
   bot.executeInteraction(interaction);
 });
 

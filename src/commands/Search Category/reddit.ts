@@ -34,7 +34,7 @@ export class RedditCommand {
             .setTimestamp(new Date(post.created_utc * 1000))
             .setImage(post.url || post.thumbnail)
             .setColor(Colors.Orange),
-        ]
+        ],
       });
     } catch (error) {
       await interaction.editReply({

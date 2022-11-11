@@ -79,7 +79,7 @@ export class DictionaryCommand {
       type: ApplicationCommandOptionType.String,
     })
     word: string,
-    interaction: CommandInteraction
+    interaction: CommandInteraction,
   ): Promise<void> {
     const response = await get(`https://api.urbandictionary.com/v0/define?term=${word}`);
     const { data } = response;
