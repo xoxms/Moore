@@ -6,7 +6,7 @@ let cacheItems = await cachePrismaItemsData();
 export async function findTargetUser(userId: string, interaction?: CommandInteraction) {
   const user = await prisma.user.findFirst({
     where: {
-      userId: userId,
+      userId,
     },
   });
 
@@ -33,7 +33,7 @@ export async function findTargetUser(userId: string, interaction?: CommandIntera
 export async function createNewProfile(userId: string) {
   const user = await prisma.user.create({
     data: {
-      userId: userId,
+      userId,
       coin: 0,
       xp: 0,
       level: 1,
