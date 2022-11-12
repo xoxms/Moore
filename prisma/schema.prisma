@@ -6,20 +6,20 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "cockroachdb"
   url      = env("DATABASE_URL")
 }
 
 model Items {
-  id          Int   @id(map: "primary") @default(sequence())
+  id          Int      @id(map: "primary") @default(sequence())
   name        String?  @db.String(255)
   emoji       String?  @db.String(255)
   description String?  @db.String(255)
   type        String?  @db.String(255)
   rarity      String?  @db.String(255)
-  usable          Boolean?
-  sellable        Boolean?
-  price           Int?
+  packed      Json?
+  sellable    Boolean?
+  price       Int?
 }
 
 model Jobs {
@@ -40,13 +40,12 @@ model Shop {
 }
 
 model Server {
-  id        String @id(map: "primary") @db.String(255)
+  id              String @id(map: "primary") @db.String(255)
   commandSettings Json?
   roomSettings    Json?
 }
 
 model User {
-  serverId  String?
   userId    String
   coin      Int?
   xp        Int?
@@ -54,5 +53,5 @@ model User {
   jobs      String? @db.String(255)
   timeout   Json?
   inventory Json?
-  id        Int  @id(map: "primary") @default(sequence())
+  id        Int     @id(map: "primary") @default(sequence())
 }
