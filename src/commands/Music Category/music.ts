@@ -177,6 +177,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -200,6 +201,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
     } else {
       await interaction.followUp({
@@ -213,6 +215,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
     }
   }
@@ -243,6 +246,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -266,6 +270,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
     } else {
       await interaction.followUp({
@@ -279,6 +284,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
     }
   }
@@ -298,6 +304,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -316,6 +323,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -332,6 +340,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -357,6 +366,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -378,6 +388,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -400,6 +411,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -415,6 +427,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -437,6 +450,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -472,6 +486,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -489,6 +504,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -513,6 +529,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -534,6 +551,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -555,6 +573,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 
@@ -585,6 +604,7 @@ export class MusicCommand {
             })
             .setTimestamp(),
         ],
+        ephemeral: true,
       });
       return;
     }
@@ -600,6 +620,7 @@ export class MusicCommand {
           })
           .setTimestamp(),
       ],
+      ephemeral: true,
     });
   }
 }
