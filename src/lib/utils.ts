@@ -1,6 +1,5 @@
 import { prisma } from "../database/connect.js";
 import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
-import { Item, Job } from "../typings/types";
 
 let cacheItems = await cachePrismaItemsData();
 let cacheJobs = await cachePrismaJobsData();
@@ -121,7 +120,7 @@ export async function updateUserLevel(userId: string, interaction: CommandIntera
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp(),
-        ]
+        ],
       });
     }
   }
