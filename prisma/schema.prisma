@@ -27,6 +27,7 @@ model Jobs {
   description  String? @unique(map: "jobs_description_uindex") @db.String(255)
   income       Int
   minimumLevel Int?
+  cooldown     String?
 }
 
 model Shop {
@@ -46,12 +47,11 @@ model Server {
 }
 
 model User {
-  userId    String
+  userId    String @id(map: "primary")
   coin      Int?
   xp        Int?
   level     Int?
   jobs      String? @db.String(255)
-  timeout   Json?
+  timeout   Json
   inventory Json?
-  id        Int     @id(map: "primary") @default(sequence())
 }

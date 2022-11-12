@@ -13,10 +13,10 @@ export class BalanceCommand {
       name: "user",
       description: "User to check balance",
       type: ApplicationCommandOptionType.User,
-      required: false
+      required: false,
     })
-      user: GuildMember,
-      interaction: CommandInteraction
+    user: GuildMember,
+    interaction: CommandInteraction,
   ): Promise<void> {
     const targetUser = user || interaction;
     const data = await findTargetUser(targetUser.id, interaction);
@@ -34,7 +34,7 @@ export class BalanceCommand {
             iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp(),
-      ]
+      ],
     });
   }
 }

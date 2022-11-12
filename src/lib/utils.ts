@@ -1,7 +1,9 @@
 import { prisma } from "../database/connect.js";
 import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { Item, Job } from "../typings/types";
 
 let cacheItems = await cachePrismaItemsData();
+let cacheJobs = await cachePrismaJobsData();
 
 export async function findTargetUser(userId: string, interaction?: CommandInteraction) {
   const user = await prisma.user.findFirst({
@@ -22,7 +24,7 @@ export async function findTargetUser(userId: string, interaction?: CommandIntera
             iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp(),
-      ]
+      ],
     });
     return;
   }
@@ -35,16 +37,17 @@ export async function createNewProfile(userId: string) {
     data: {
       userId,
       coin: 0,
+      timeout: { daily: 0, weekly: 0, jobsChange: 0, work: 0 },
       xp: 0,
-      level: 1,
+      level: 0,
       inventory: [
         {
           id: 1,
           quantity: 1,
-        }
+        },
       ],
-      jobs: ""
-    }
+      jobs: "",
+    },
   });
 
   return user;
@@ -60,13 +63,15 @@ export async function getUserInventoryData(userId: string, interaction?: Command
   if (!user) return;
 
   const { inventory } = user;
-  const itemsData = await Promise.all((<Array<{ id: number, quantity: number }>>inventory).map(async (item) => {
-    const itemData = await findItemById(item.id);
-    return {
-      ...itemData,
-      quantity: item.quantity
-    };
-  }));
+  const itemsData = await Promise.all(
+    (<Array<{ id: number; quantity: number }>>inventory).map(async (item) => {
+      const itemData = await findItemById(item.id);
+      return {
+        ...itemData,
+        quantity: item.quantity,
+      };
+    }),
+  );
 
   return itemsData;
 }
@@ -80,10 +85,31 @@ export async function getFullUserDetails(userId: string, interaction?: CommandIn
 
   const fullUserDetails = {
     ...user,
-    inventory
+    inventory,
   };
 
   return fullUserDetails;
+}
+
+export async function saveNewUserData(userId: string, data: any) {
+  const user = await prisma.user.updateMany({
+    where: {
+      userId,
+    },
+    data,
+  });
+
+  return user;
+}
+
+export async function getJobsData() {
+  const jobs = await cacheJobs;
+  return jobs;
+}
+
+export async function cachePrismaJobsData() {
+  const jobs = await prisma.jobs.findMany();
+  return jobs;
 }
 
 async function cachePrismaItemsData() {
@@ -93,4 +119,5 @@ async function cachePrismaItemsData() {
 
 setInterval(async () => {
   cacheItems = await cachePrismaItemsData();
+  cacheJobs = await cachePrismaJobsData();
 }, 1000 * 60 * 60 * 24);

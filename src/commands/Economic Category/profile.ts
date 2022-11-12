@@ -8,7 +8,7 @@ import { createNewProfile, findTargetUser, getFullUserDetails } from "../../lib/
 @Category("Economic")
 @SlashGroup({
   name: "profile",
-  description: "View or create new profile"
+  description: "View or create new profile",
 })
 @SlashGroup("profile")
 export class ProfileCommand {
@@ -18,10 +18,10 @@ export class ProfileCommand {
       name: "user",
       description: "User to check their profile",
       type: ApplicationCommandOptionType.User,
-      required: false
+      required: false,
     })
-      user: GuildMember,
-      interaction: CommandInteraction,
+    user: GuildMember,
+    interaction: CommandInteraction,
   ): Promise<void> {
     const targetUser = user || interaction;
     const data = await getFullUserDetails(targetUser.user.id, interaction);
@@ -35,37 +35,30 @@ export class ProfileCommand {
             {
               name: "💾 Levels",
               value: String(data.level || 1),
-              inline: true
+              inline: true,
             },
             {
               name: "✨ Experience",
               value: String(data.xp || 0),
-              inline: true
+              inline: true,
             },
             {
               name: "💰 Coins",
               value: String(data.coin || 0),
-              inline: true
+              inline: true,
             },
             {
               name: "🏦 Net Worth",
               value: String(
-                (
-                  Number(data.coin) +
-                  Number(
-                    data.inventory.reduce(
-                      (acc, cur) => acc + (cur.price || 0) * cur.quantity,
-                      0
-                    )
-                  )
-                )
+                Number(data.coin) +
+                  Number(data.inventory.reduce((acc, cur) => acc + (cur.price || 0) * cur.quantity, 0)),
               ),
-              inline: true
+              inline: true,
             },
             {
               name: "💼 Jobs",
               value: data.jobs || "None",
-              inline: true
+              inline: true,
             },
           ])
           .setColor(Colors.Green)
@@ -75,14 +68,12 @@ export class ProfileCommand {
             iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp(),
-        ]
+      ],
     });
   }
 
   @Slash({ description: "Create new profile" })
-  async create(
-    interaction: CommandInteraction,
-  ): Promise<void> {
+  async create(interaction: CommandInteraction): Promise<void> {
     const data = await findTargetUser(interaction.user.id);
     if (data) {
       await interaction.reply({
@@ -96,7 +87,7 @@ export class ProfileCommand {
               iconURL: interaction.user.displayAvatarURL(),
             })
             .setTimestamp(),
-        ]
+        ],
       });
       return;
     }
@@ -115,7 +106,7 @@ export class ProfileCommand {
             iconURL: interaction.user.displayAvatarURL(),
           })
           .setTimestamp(),
-      ]
+      ],
     });
   }
 }
