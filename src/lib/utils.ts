@@ -91,6 +91,47 @@ export async function getFullUserDetails(userId: string, interaction?: CommandIn
   return fullUserDetails;
 }
 
+export async function updateUserLevel(userId: string, interaction: CommandInteraction) {
+  const user = await findTargetUser(userId, interaction);
+  if (!user) return;
+
+  const { xp, level } = user;
+  const nextLevel = (level || 0) + 1;
+  const nextLevelXp = 5 * (nextLevel ^ 2) + 50 * nextLevel + 100;
+
+  if ((xp || 0) >= nextLevelXp) {
+    await prisma.user.update({
+      where: {
+        userId,
+      },
+      data: {
+        level: nextLevel,
+      },
+    });
+
+    if (interaction) {
+      await interaction.channel!.send({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("🎉 Level up!")
+            .setDescription(`**${interaction.member}** has leveled up to level **${nextLevel}**`)
+            .setColor(Colors.Green)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
+        ]
+      });
+    }
+  }
+}
+
+export async function getJobsData() {
+  const jobs = await cacheJobs;
+  return jobs;
+}
+
 export async function saveNewUserData(userId: string, data: any) {
   const user = await prisma.user.updateMany({
     where: {
@@ -100,11 +141,6 @@ export async function saveNewUserData(userId: string, data: any) {
   });
 
   return user;
-}
-
-export async function getJobsData() {
-  const jobs = await cacheJobs;
-  return jobs;
 }
 
 export async function cachePrismaJobsData() {

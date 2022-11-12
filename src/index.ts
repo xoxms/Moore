@@ -4,6 +4,7 @@ import { dirname, importx } from "@discordx/importer";
 import { ActivityType, GatewayIntentBits } from "discord-api-types/v10";
 import { debuglog } from "util";
 import type { Interaction } from "discord.js";
+import { IsOnGuild } from "./guard/IsOnGuild";
 
 export const botLog = debuglog("bot");
 const NODE_ENV = process.env.NODE_ENV === "production";
@@ -18,6 +19,7 @@ export const bot = new Client({
   simpleCommand: {
     prefix: "mx!",
   },
+  guards: [IsOnGuild]
 });
 
 bot.once("ready", async () => {
