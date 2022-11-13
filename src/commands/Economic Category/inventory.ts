@@ -5,7 +5,6 @@ import { getUserInventoryData } from "../../lib/utils.js";
 import { bot } from "../../index.js";
 import { Pagination, PaginationType } from "@discordx/pagination";
 import { Item } from "../../typings/types";
-import { MessageOptions } from "child_process";
 
 @Discord()
 @Category("Economic")
