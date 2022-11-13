@@ -6,7 +6,7 @@ import ms from "ms";
 
 @Discord()
 @Category("Economic")
-export class DailyCommand {
+export class WeeklyCommand {
   @Slash({ name: "weekly", description: "Claim your weekly reward" })
   async weekly(interaction: CommandInteraction): Promise<void> {
     const data = await findTargetUser(interaction.user.id, interaction);

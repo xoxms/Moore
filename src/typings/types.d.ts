@@ -1,9 +1,12 @@
+export type Inventory = Array<{ id: number; quantity: number }>;
+export type FullInventory = Array<Item & { quantity: number }>;
+
 export type User = {
   userId: string;
   coin: number;
   xp: number;
   level: number;
-  inventory: Array<{ id: number; quantity: number }>;
+  inventory: Inventory;
   jobs: string;
   timeout: {
     daily: number;
