@@ -2,7 +2,7 @@ import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
-import { findItemByName, getFullUserDetails, saveNewUserData } from "../../lib/utils";
+import { findItemByName, getFullUserDetails, saveNewUserData } from "../../lib/utils.js";
 import { FullInventory, Item } from "../../typings/types";
 
 @Discord()
@@ -99,7 +99,7 @@ export class SellCommand {
       return;
     }
 
-    (data.inventory[itemIndex]).quantity -= quantity;
+    data.inventory[itemIndex].quantity -= quantity;
     if (data.inventory[itemIndex].quantity === 0) {
       data.inventory!.splice(itemIndex, 1);
     }

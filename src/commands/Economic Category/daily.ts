@@ -1,7 +1,7 @@
 import { Discord, Slash } from "discordx";
 import { Category } from "@discordx/utilities";
 import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
-import { findTargetUser, saveNewUserData } from "../../lib/utils";
+import { findTargetUser, saveNewUserData } from "../../lib/utils.js";
 import ms from "ms";
 
 @Discord()

@@ -2,7 +2,7 @@ import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
-import { findItemByName, findTargetUser, saveNewUserData } from "../../lib/utils";
+import { findItemByName, findTargetUser, saveNewUserData } from "../../lib/utils.js";
 
 @Discord()
 @Category("Economic")

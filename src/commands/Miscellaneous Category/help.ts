@@ -2,7 +2,7 @@ import type { DApplicationCommand } from "discordx";
 import { Discord, MetadataStorage, Slash, SlashGroup, SlashOption } from "discordx";
 import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder } from "discord.js";
 import { Category, ICategory } from "@discordx/utilities";
-import { Pagination } from "@discordx/pagination";
+import { Pagination, PaginationType } from "@discordx/pagination";
 import { bot } from "../../index.js";
 
 @Discord()
@@ -42,7 +42,9 @@ export class HelpCommand {
       return { embeds: [embed] };
     });
 
-    const pagination = new Pagination(interaction, pages);
+    const pagination = new Pagination(interaction, pages, {
+      type: PaginationType.SelectMenu,
+    });
     await pagination.send();
   }
 

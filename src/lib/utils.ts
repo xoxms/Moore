@@ -77,6 +77,23 @@ export async function getUserInventoryData(userId: string, interaction?: Command
     }),
   );
 
+  if (itemsData.length === 0 && interaction) {
+    await interaction.reply({
+      embeds: [
+        new EmbedBuilder()
+          .setTitle("❌ Empty inventory")
+          .setDescription("You don't have any items in your inventory")
+          .setColor(Colors.Red)
+          .setFooter({
+            text: `Requested by ${interaction.user.tag}`,
+            iconURL: interaction.user.displayAvatarURL(),
+          })
+          .setTimestamp(),
+      ],
+    });
+    return;
+  }
+
   return itemsData;
 }
 
