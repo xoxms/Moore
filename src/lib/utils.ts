@@ -57,6 +57,11 @@ async function findItemById(id: number) {
   return item;
 }
 
+export async function findItemByName(name: string) {
+  const item = await cacheItems.find((item) => item.name?.toLowerCase() === name.toLowerCase());
+  return item;
+}
+
 export async function getUserInventoryData(userId: string, interaction?: CommandInteraction) {
   const user = await findTargetUser(userId, interaction);
   if (!user) return;
@@ -90,11 +95,7 @@ export async function getFullUserDetails(userId: string, interaction?: CommandIn
   return fullUserDetails;
 }
 
-export async function updateUserLevel(userId: string, interaction: CommandInteraction) {
-  const user = await findTargetUser(userId, interaction);
-  if (!user) return;
-
-  const { xp, level } = user;
+export async function updateUserLevel(userId: string, interaction: CommandInteraction, xp: number, level: number) {
   const nextLevel = (level || 0) + 1;
   const nextLevelXp = 5 * (nextLevel ^ 2) + 50 * nextLevel + 100;
 
