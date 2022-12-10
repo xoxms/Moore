@@ -21,5 +21,5 @@ Below is the list of essential things that you **need** to build and run this pr
 - (*) [Visual Studio C++ Build Tools](https://go.microsoft.com/fwlink/?LinkId=691126)
 
 `*` — This can be installed with "Install Additional Tools for Node.js"
-![img.png](assets/additional-node-tools.png)
+![img.png](https://tinarskii-aws.s3.ap-southeast-1.amazonaws.com/additional-node-tools.png)
 

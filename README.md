@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://moore.mulforma.space/">
-    <img src="assets/moore.png" width="128" />
+    <img src="https://tinarskii-aws.s3.ap-southeast-1.amazonaws.com/moore.png" width="128" />
     <h2 align="center">
       Moore
     </h2>
