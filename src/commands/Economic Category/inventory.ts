@@ -46,7 +46,7 @@ export class InventoryCommand {
       return arr;
     }, []);
 
-    const pagination = new Pagination(interaction, await generatePage(inventoryItems), {
+    const pagination = new Pagination(interaction, generatePage(inventoryItems), {
       type: PaginationType.Button,
     });
     await pagination.send();
