@@ -24,14 +24,14 @@ export class HelpCommand {
         };
       },
     );
-    const categories = new Set(commands.map((c) => c.category));
+    const categories = new Set(commands.map((c) => c.category || ""));
     const pages = Array.from(categories).map((category, idx) => {
       const categoryCommands = commands.filter((c) => c.category === category);
       const embed = new EmbedBuilder()
         .setColor(Colors.Blue)
         .setFooter({
           text: "You can send `/help command` follow with command name to get more information about it.",
-          iconURL: interaction.user.avatarURL()!,
+          iconURL: interaction.user.displayAvatarURL(),
         })
         .setThumbnail(bot.user!.displayAvatarURL())
         .setTitle(`[Page ${idx + 1}/${categories.size}] Category: ${category as string}`);
@@ -44,6 +44,9 @@ export class HelpCommand {
 
     const pagination = new Pagination(interaction, pages, {
       type: PaginationType.SelectMenu,
+      pageText: Array.from(categories).map(str => `${str} Category`),
+      placeholder:  "Choose category",
+      showStartEnd: false
     });
     await pagination.send();
   }
