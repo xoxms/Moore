@@ -127,7 +127,7 @@ export class RoleCommand {
       await interaction.guild!.channels.create({
         name,
         type: type === "text" ? ChannelType.GuildText : ChannelType.GuildVoice,
-        topic: topic,
+        topic,
         nsfw: ageRestricted,
         parent: guildChannel.find(
           (c: NonThreadGuildBasedChannel | null) => c?.name === category,

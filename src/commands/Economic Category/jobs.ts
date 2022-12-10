@@ -57,10 +57,10 @@ export class JobsCommand {
     const jobs = await getJobsData();
     const data = await findTargetUser(interaction.user.id, interaction);
     if (!data) return;
-    job = job.toLowerCase();
+    const jobName = job.toLowerCase();
 
     const jobsList = jobs.map((j: any) => j.name.toLowerCase());
-    if (!jobsList.includes(job)) {
+    if (!jobsList.includes(jobName)) {
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
@@ -77,7 +77,7 @@ export class JobsCommand {
       return;
     }
 
-    const jobsData = jobs.find((j: any) => j.name === job);
+    const jobsData = jobs.find((j: any) => j.name === jobName);
     if (Number(data.level) < Number(jobsData?.minimumLevel)) {
       await interaction.reply({
         embeds: [
@@ -133,7 +133,7 @@ export class JobsCommand {
       return;
     }
 
-    data.jobs = job;
+    data.jobs = jobName;
     (<any>data.timeout).jobsChange = Date.now();
     await saveNewUserData(interaction.user.id, data);
 
@@ -141,7 +141,7 @@ export class JobsCommand {
       embeds: [
         new EmbedBuilder()
           .setTitle("✅ Successfully changed jobs")
-          .setDescription(`You have successfully changed your jobs to **${job}**`)
+          .setDescription(`You have successfully changed your jobs to **${jobName}**`)
           .setColor(Colors.Green)
           .setFooter({
             text: `Requested by ${interaction.user.tag}`,

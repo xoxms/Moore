@@ -14,7 +14,7 @@ export class InventoryCommand {
     const inventory = await getUserInventoryData(interaction.user.id, interaction);
     if (!inventory) return;
 
-    async function generatePage(items: Array<Array<Item & { quantity: number }>>) {
+    function generatePage(items: Array<Array<Item & { quantity: number }>>) {
       const pages = items;
       return pages.map((page) => {
         const embed = new EmbedBuilder()
