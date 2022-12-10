@@ -12,7 +12,7 @@ export class WeeklyCommand {
     const data = await findTargetUser(interaction.user.id, interaction);
     if (!data) return;
 
-    if (Date.now() - (<any>data.timeout).daily < ms("7d")) {
+    if (Date.now() - (<any>data.timeout).weekly < ms("7d")) {
       await interaction.reply({
         embeds: [
           new EmbedBuilder()
@@ -33,7 +33,7 @@ export class WeeklyCommand {
       return;
     }
 
-    (<any>data.timeout).daily = Date.now();
+    (<any>data.timeout).weekly = Date.now();
     data.coin! += 1500;
     await saveNewUserData(interaction.user.id, data);
     await interaction.reply({
