@@ -39,20 +39,20 @@ export class ProfileCommand {
             },
             {
               name: "✨ Experience",
-              value: String(data.xp || 0),
+              value: `${String(data.xp || 0)  } XPs`,
               inline: true,
             },
             {
               name: "💰 Coins",
-              value: String(data.coin || 0),
+              value: `${String(data.coin || 0)  } Coins`,
               inline: true,
             },
             {
               name: "🏦 Net Worth",
-              value: String(
+              value: `${String(
                 Number(data.coin) +
                   Number(data.inventory.reduce((acc, cur) => acc + (cur.price || 0) * cur.quantity, 0)),
-              ),
+              )  } Coins`,
               inline: true,
             },
             {

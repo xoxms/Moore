@@ -28,6 +28,23 @@ export class JobsCommand {
       )
       .join("\n\n");
 
+    if (!jobsList) {
+      await interaction.reply({
+        embeds: [
+          new EmbedBuilder()
+            .setTitle("❌ No results")
+            .setDescription("We indexed the entire database but, no jobs found...\nIf you are the developer, consider adding them.")
+            .setColor(Colors.Red)
+            .setFooter({
+              text: `Requested by ${interaction.user.tag}`,
+              iconURL: interaction.user.displayAvatarURL(),
+            })
+            .setTimestamp(),
+        ],
+      });
+      return;
+    }
+
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
