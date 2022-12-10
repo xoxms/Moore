@@ -32,7 +32,7 @@
 - [Special Thanks](#special-thanks)
 
 ## About
-Moore is an experimental discord bot based on [discordx](https://discordx.js.org).
+Moore (pronounced /mjuɑː/ or Mew-Are) is an experimental discord bot based on [discordx](https://discordx.js.org).
 The bot is currently in development, it will be a successor to [Zelar](https://zelar.mulforma.space) once
 the bot is stable enough.
 This project focusing on object-oriented programming, clean code, and good documentation, as
