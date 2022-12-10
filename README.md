@@ -71,7 +71,3 @@ Moore is open-sourced software licensed under the [Apache License 2.0](/LICENSE)
 
 - [Tinnaphat Tin Somsang (Tinarskii)](https://www.tinarskii.com) - Author of Zelar, founder of [Mulforma](https://mulforma.space)
 - You! - Star this repository if you like it!
-
-<p align="center">
-    <a href="https://mulforma.space/"><img src="https://i.ibb.co/rdNwHF9/MAINTAINED-BY-MULFORMA.png"></a>
-</p>
