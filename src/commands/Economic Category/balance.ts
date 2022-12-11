@@ -18,7 +18,7 @@ export class BalanceCommand {
     user: GuildMember,
     interaction: CommandInteraction,
   ): Promise<void> {
-    const targetUser = user || interaction;
+    const targetUser = user || interaction.user;
     const data = await findTargetUser(targetUser.id, interaction);
     if (!data) return;
 
