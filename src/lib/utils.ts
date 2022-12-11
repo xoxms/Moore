@@ -31,6 +31,16 @@ export async function findTargetUser(userId: string, interaction?: CommandIntera
   return user;
 }
 
+async function findItemById(id: number) {
+  const item = await cacheItems.find((item) => item.id === id);
+  return item;
+}
+
+export async function findItemByName(name: string) {
+  const item = await cacheItems.find((item) => item.name?.toLowerCase() === name.toLowerCase());
+  return item;
+}
+
 export async function createNewProfile(userId: string) {
   const user = await prisma.user.create({
     data: {
@@ -50,16 +60,6 @@ export async function createNewProfile(userId: string) {
   });
 
   return user;
-}
-
-async function findItemById(id: number) {
-  const item = await cacheItems.find((item) => item.id === id);
-  return item;
-}
-
-export async function findItemByName(name: string) {
-  const item = await cacheItems.find((item) => item.name?.toLowerCase() === name.toLowerCase());
-  return item;
 }
 
 export async function getUserInventoryData(userId: string, interaction?: CommandInteraction) {
@@ -112,6 +112,11 @@ export async function getFullUserDetails(userId: string, interaction?: CommandIn
   return fullUserDetails;
 }
 
+export async function getJobsData() {
+  const jobs = await cacheJobs;
+  return jobs;
+}
+
 export async function updateUserLevel(userId: string, interaction: CommandInteraction, xp: number, level: number) {
   const nextLevel = (level || 0) + 1;
   const nextLevelXp = 5 * (nextLevel ^ 2) + 50 * nextLevel + 100;
@@ -142,11 +147,6 @@ export async function updateUserLevel(userId: string, interaction: CommandIntera
       });
     }
   }
-}
-
-export async function getJobsData() {
-  const jobs = await cacheJobs;
-  return jobs;
 }
 
 export async function saveNewUserData(userId: string, data: any) {

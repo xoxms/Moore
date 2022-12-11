@@ -44,9 +44,9 @@ export class HelpCommand {
 
     const pagination = new Pagination(interaction, pages, {
       type: PaginationType.SelectMenu,
-      pageText: Array.from(categories).map(str => `${str} Category`),
-      placeholder:  "Choose category",
-      showStartEnd: false
+      pageText: Array.from(categories).map((str) => `${str} Category`),
+      placeholder: "Choose category",
+      showStartEnd: false,
     });
     await pagination.send();
   }
