@@ -1,10 +1,11 @@
 import { Discord, Slash } from "discordx";
 import { Category } from "@discordx/utilities";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { getUserInventoryData } from "../../lib/utils.js";
 import { bot } from "../../index.js";
 import { Pagination, PaginationType } from "@discordx/pagination";
 import { Item } from "../../typings/types";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -17,14 +18,13 @@ export class InventoryCommand {
     function generatePage(items: Array<Array<Item & { quantity: number }>>) {
       const pages = items;
       return pages.map((page) => {
-        const embed = new EmbedBuilder()
-          .setColor(Colors.Blue)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.avatarURL()!,
-          })
-          .setThumbnail(bot.user!.displayAvatarURL())
-          .setTitle(`🎒 ${interaction.user.username}'s inventory`);
+        const embed = templateEmbed({
+          type: "default",
+          title: `${interaction.user.username}'s inventory`,
+          emote: "🎒",
+          thumbnail: bot.user!.displayAvatarURL(),
+          interaction,
+        });
 
         page.forEach((item) => {
           embed.addFields({

@@ -1,9 +1,8 @@
 import { Category } from "@discordx/utilities";
 import { Discord, Slash, SlashGroup } from "discordx";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { Colors, CommandInteraction, EmbedBuilder, version } from "discord.js";
 import ms from "ms";
 import os from "os";
-import { version } from "discord.js";
 import { bot } from "../../index.js";
 
 @Discord()

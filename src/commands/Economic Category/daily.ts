@@ -1,8 +1,9 @@
 import { Discord, Slash } from "discordx";
 import { Category } from "@discordx/utilities";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { findTargetUser, saveNewUserData } from "../../lib/utils.js";
 import ms from "ms";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -15,19 +16,17 @@ export class DailyCommand {
     if (Date.now() - (<any>data.timeout).daily < ms("1d")) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ You have already claimed your daily reward")
-            .setDescription(
-              `You can claim your daily reward again in **${ms(ms("1d") - (Date.now() - (<any>data.timeout).daily), {
+          templateEmbed({
+            type: "error",
+            title: "Cannot claimed",
+            description: `You can claim your daily reward again in **${ms(
+              ms("1d") - (Date.now() - (<any>data.timeout).daily),
+              {
                 long: true,
-              })}**`,
-            )
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+              },
+            )}**`,
+            interaction,
+          }),
         ],
       });
     }
@@ -37,15 +36,12 @@ export class DailyCommand {
     await saveNewUserData(interaction.user.id, data);
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("✅ Successfully claimed your daily reward")
-          .setDescription("You have successfully claimed your daily reward")
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Successfully claimed",
+          description: "You have successfully claimed your daily reward",
+          interaction,
+        }),
       ],
     });
   }

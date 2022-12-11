@@ -1,8 +1,9 @@
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
-import { Colors, CommandInteraction, EmbedBuilder, GuildMember } from "discord.js";
+import { CommandInteraction, GuildMember } from "discord.js";
 import { findTargetUser } from "../../lib/utils.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -24,16 +25,14 @@ export class BalanceCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`💰 ${targetUser.username}'s balance`)
-          .setDescription(`**${targetUser}** has **${data.coin}** coins`)
-          .setColor(Colors.Green)
-          .setThumbnail(targetUser.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: `${targetUser.username}'s balance`,
+          description: `**${targetUser}** has **${data.coin}** coins`,
+          thumbnail: targetUser.displayAvatarURL(),
+          emote: "💰",
+          interaction,
+        }),
       ],
     });
   }

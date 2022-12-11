@@ -1,8 +1,9 @@
-import { Discord, SlashGroup, Slash, SlashOption } from "discordx";
+import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
-import { Colors, CommandInteraction, EmbedBuilder, GuildMember } from "discord.js";
+import { CommandInteraction, GuildMember } from "discord.js";
 import { createNewProfile, findTargetUser, getFullUserDetails } from "../../lib/utils.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -29,9 +30,10 @@ export class ProfileCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`${targetUser.user.username}'s profile`)
-          .setFields([
+        templateEmbed({
+          type: "default",
+          title: `${targetUser.user.username}'s profile`,
+          fields: [
             {
               name: "💾 Levels",
               value: String(data.level || 1),
@@ -60,14 +62,10 @@ export class ProfileCommand {
               value: data.jobs || "None",
               inline: true,
             },
-          ])
-          .setColor(Colors.Green)
-          .setThumbnail(targetUser.user.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+          ],
+          thumbnail: targetUser.user.displayAvatarURL(),
+          interaction,
+        }),
       ],
     });
   }
@@ -78,15 +76,12 @@ export class ProfileCommand {
     if (data) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Profile already created")
-            .setDescription("You already have a profile")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Cannot perform operation",
+            description: "You already created your profile",
+            interaction,
+          }),
         ],
       });
       return;
@@ -96,16 +91,12 @@ export class ProfileCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("✅ Profile created")
-          .setDescription("Your profile has been created")
-          .setColor(Colors.Green)
-          .setThumbnail(interaction.user.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Successfully perform operation",
+          description: "Your profile has been created! Check your profile with `/profile view` command",
+          interaction,
+        }),
       ],
     });
   }

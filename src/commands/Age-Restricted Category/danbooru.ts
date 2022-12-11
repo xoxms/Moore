@@ -1,7 +1,8 @@
 import { Discord, Slash, SlashOption } from "discordx";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, TextChannel } from "discord.js";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Age-Restricted")
@@ -25,7 +26,16 @@ export class DanbooruCommand {
     interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
-      await interaction.reply("This channel is not Age-Restricted!");
+      await interaction.reply({
+        embeds: [
+          templateEmbed({
+            type: "error",
+            title: "Cannot execute command",
+            description: "This command can only be executed from Age-Restricted channel.",
+            interaction,
+          }),
+        ],
+      });
       return;
     }
 
@@ -34,15 +44,16 @@ export class DanbooruCommand {
     );
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`Image from ${data[0].tag_string_artist}`)
-          .setImage(data[0].file_url)
-          .setColor(Colors.Green)
-          .setURL(`https://danbooru.donmai.us/posts/${data[0].id}`)
-          .setFooter({
+        templateEmbed({
+          type: "default",
+          title: `Image by ${data[0].tag_string_artist}`,
+          image: data[0].file_url,
+          url: `https://danbooru.donmai.us/posts/${data[0].id}`,
+          footer: {
             text: `rating: ${this.rating[data[0].rating as keyof typeof this.rating]} | score: ${data[0].score}`,
-          })
-          .setTimestamp(),
+          },
+          interaction,
+        }),
       ],
     });
   }

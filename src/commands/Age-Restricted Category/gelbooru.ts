@@ -1,7 +1,8 @@
 import { Discord, Slash, SlashOption } from "discordx";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, TextChannel } from "discord.js";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Age-Restricted")
@@ -18,7 +19,16 @@ export class GelbooruCommand {
     interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
-      await interaction.reply("This channel is not Age-Restricted!");
+      await interaction.reply({
+        embeds: [
+          templateEmbed({
+            type: "error",
+            title: "Cannot execute command",
+            description: "This command can only be executed from Age-Restricted channel.",
+            interaction,
+          }),
+        ],
+      });
       return;
     }
 
@@ -29,19 +39,29 @@ export class GelbooruCommand {
     );
 
     if (!data.post) {
-      await interaction.reply("No results found!");
+      await interaction.reply({
+        embeds: [
+          templateEmbed({
+            type: "error",
+            title: "Not found",
+            description: "No results found",
+            interaction,
+          }),
+        ],
+      });
       return;
     }
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`Image from ${data.post[0].owner}`)
-          .setColor(Colors.Fuchsia)
-          .setImage(data.post[0].file_url)
-          .setFooter({ text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` })
-          .setURL(`https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`)
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: `Image by ${data.post[0].owner}`,
+          image: data.post[0].file_url,
+          url: `https://gelbooru.com/index.php?page=post&s=view&id=${data.post[0].id}`,
+          footer: { text: `rating: ${data.post[0].rating} | score: ${data.post[0].score}` },
+          interaction,
+        }),
       ],
     });
   }

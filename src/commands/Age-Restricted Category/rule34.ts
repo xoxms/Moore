@@ -1,7 +1,8 @@
 import { Discord, Slash, SlashOption } from "discordx";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, TextChannel } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, TextChannel } from "discord.js";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Age-Restricted")
@@ -18,7 +19,16 @@ export class Rule34Command {
     interaction: CommandInteraction,
   ): Promise<void> {
     if (!(<TextChannel>interaction.channel).nsfw) {
-      await interaction.reply("This channel is not Age-Restricted!");
+      await interaction.reply({
+        embeds: [
+          templateEmbed({
+            type: "error",
+            title: "Cannot execute command",
+            description: "This command can only be executed from Age-Restricted channel.",
+            interaction,
+          }),
+        ],
+      });
       return;
     }
 
@@ -27,13 +37,14 @@ export class Rule34Command {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`Image from ${image.owner}`)
-          .setColor(Colors.Fuchsia)
-          .setImage(image.file_url)
-          .setFooter({ text: `rating: ${image.rating} | score: ${image.score}` })
-          .setURL(`https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`)
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: `Image from ${image.owner}`,
+          image: image.file_url,
+          url: `https://rule34.xxx/index.php?page=post&s=view&id=${image.id}`,
+          footer: { text: `rating: ${image.rating} | score: ${image.score}` },
+          interaction,
+        }),
       ],
     });
   }

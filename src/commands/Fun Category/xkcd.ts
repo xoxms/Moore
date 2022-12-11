@@ -1,8 +1,8 @@
 import type { CommandInteraction } from "discord.js";
-import { EmbedBuilder } from "discord.js";
 import { Discord, Slash } from "discordx";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Fun")
@@ -16,15 +16,13 @@ export class XkcdCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`#${data.num} - ${data.title}`)
-          .setImage(data.img)
-          .setDescription(data.alt)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: `#${data.num} - ${data.title}`,
+          description: data.alt || "...",
+          image: data.img,
+          interaction
+        })
       ],
     });
   }

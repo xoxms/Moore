@@ -1,9 +1,10 @@
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { findItemByName, getFullUserDetails, saveNewUserData } from "../../lib/utils.js";
 import { FullInventory, Item } from "../../typings/types";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -33,15 +34,12 @@ export class SellCommand {
     if (!itemData) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Item not found")
-            .setDescription(`Item **${item}** not found`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not found",
+            description: `Item **${item}** is not found in database`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -50,15 +48,12 @@ export class SellCommand {
     if (!itemData.price) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Item not sellable")
-            .setDescription(`Item **${item}** is not sellable`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not sellable",
+            description: `Item **${item}** is not sellable or has a price of 0`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -68,15 +63,12 @@ export class SellCommand {
     if (itemIndex === -1) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Item not found")
-            .setDescription(`Item **${item}** not found in your inventory`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not found",
+            description: `Item **${item}** is not found in your inventory`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -85,15 +77,12 @@ export class SellCommand {
     if (data.inventory[itemIndex].quantity < quantity) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Not enough items")
-            .setDescription(`You don't have enough **${item}** in your inventory`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Invalid amount",
+            description: `You don't have enough **${item}**`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -107,15 +96,12 @@ export class SellCommand {
     await saveNewUserData(interaction.user.id, data);
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("✅ Item sold")
-          .setDescription(`You sold **${quantity}x ${item}** for **${itemData.price * quantity}** coins`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Successfully perform operation",
+          description: `You sold ${quantity}x ${item} for ${itemData.price * quantity} coins!`,
+          interaction,
+        }),
       ],
     });
   }

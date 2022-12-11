@@ -8,7 +8,7 @@ export default async function (interaction: CommandInteraction, data: User, jobs
   const randomOp = ["+", "-", "*"][Math.floor(Math.random() * 3)];
   const result = eval(`${number1}${randomOp}${number2}`);
 
-  await interaction.reply({
+  await interaction.editReply({
     embeds: [
       new EmbedBuilder()
         .setTitle("📝 Math Quiz (15 seconds)")

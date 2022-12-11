@@ -1,8 +1,8 @@
 import type { CommandInteraction } from "discord.js";
+import { ApplicationCommandOptionType, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
-import { ApplicationCommandOptionType, User } from "discord.js";
 
 @Discord()
 @Category("Fun")

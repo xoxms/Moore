@@ -1,7 +1,8 @@
 import { Discord, Slash } from "discordx";
 import { Category } from "@discordx/utilities";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { prisma } from "../../database/connect.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -18,15 +19,12 @@ export class LeaderboardCommand {
     if (!leader) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ No one's here...")
-            .setDescription("No one create their account yet. Use `/profile create` command to create one.")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not found",
+            description: "No one create their user profile yet...",
+            interaction,
+          }),
         ],
       });
       return;
@@ -36,15 +34,13 @@ export class LeaderboardCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("🏆 Global Leaderboard")
-          .setDescription(leaderboard.join("\n"))
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Global Leaderboard",
+          description: leaderboard.join("\n"),
+          emote: "🏆",
+          interaction,
+        }),
       ],
     });
   }

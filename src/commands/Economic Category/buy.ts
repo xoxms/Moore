@@ -1,8 +1,9 @@
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
-import { Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { CommandInteraction } from "discord.js";
 import { findItemByName, findTargetUser, saveNewUserData } from "../../lib/utils.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Economic")
@@ -32,15 +33,12 @@ export class BuyCommand {
     if (!itemData) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Item not found")
-            .setDescription(`Item **${item}** not found`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not found",
+            description: `Item **${item}** is not found, maybe check your spelling again?`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -49,15 +47,12 @@ export class BuyCommand {
     if (!itemData.price) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Item not purchasable")
-            .setDescription(`Item **${item}** is not purchasable`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Not purchasable",
+            description: `Item **${item}** is not purchasable or the price has been set up incorrectly by the developer`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -66,15 +61,12 @@ export class BuyCommand {
     if ((data.coin || 0) < itemData.price * quantity) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Insufficient balance")
-            .setDescription(`You don't have enough coins to buy **${item}**`)
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Insufficient balance",
+            description: `You don't have enough coins to buy **${item}**`,
+            interaction,
+          }),
         ],
       });
       return;
@@ -89,15 +81,12 @@ export class BuyCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("✅ Item purchased")
-          .setDescription(`You have purchased **${item}** for **${itemData.price * quantity}** coins`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Item purchased",
+          description: `You have purchased **${item}** for **${itemData.price * quantity}** coins`,
+          interaction,
+        }),
       ],
     });
   }
