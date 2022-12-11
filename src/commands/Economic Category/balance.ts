@@ -18,14 +18,14 @@ export class BalanceCommand {
     user: GuildMember,
     interaction: CommandInteraction,
   ): Promise<void> {
-    const targetUser = user || interaction.user;
+    const targetUser = user?.user || interaction.user;
     const data = await findTargetUser(targetUser.id, interaction);
     if (!data) return;
 
     await interaction.reply({
       embeds: [
         new EmbedBuilder()
-          .setTitle(`💰 ${targetUser.user.username}'s balance`)
+          .setTitle(`💰 ${targetUser.username}'s balance`)
           .setDescription(`**${targetUser}** has **${data.coin}** coins`)
           .setColor(Colors.Green)
           .setThumbnail(targetUser.displayAvatarURL())
