@@ -1,9 +1,10 @@
 import type { DApplicationCommand } from "discordx";
 import { Discord, MetadataStorage, Slash, SlashGroup, SlashOption } from "discordx";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Category, ICategory } from "@discordx/utilities";
 import { Pagination, PaginationType } from "@discordx/pagination";
 import { bot } from "../../index.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Miscellaneous")
@@ -27,14 +28,16 @@ export class HelpCommand {
     const categories = new Set(commands.map((c) => c.category || ""));
     const pages = Array.from(categories).map((category, idx) => {
       const categoryCommands = commands.filter((c) => c.category === category);
-      const embed = new EmbedBuilder()
-        .setColor(Colors.Blue)
-        .setFooter({
+      const embed = templateEmbed({
+        type: "default",
+        title: `(Page ${idx + 1}/${categories.size}) Category: ${category as string}`,
+        footer: {
           text: "You can send `/help command` follow with command name to get more information about it.",
           iconURL: interaction.user.displayAvatarURL(),
-        })
-        .setThumbnail(bot.user!.displayAvatarURL())
-        .setTitle(`[Page ${idx + 1}/${categories.size}] Category: ${category as string}`);
+        },
+        thumbnail: bot.user!.displayAvatarURL(),
+        interaction,
+      });
 
       categoryCommands.forEach((c) => {
         embed.addFields({ name: `/${c.name}`, value: c.description });
@@ -73,26 +76,33 @@ export class HelpCommand {
       return;
     }
 
-    const embed = new EmbedBuilder()
-      .setColor(Colors.Blue)
-      .setFooter({
+    const embed = templateEmbed({
+      type: "default",
+      title: cmd.name.toUpperCase(),
+      footer: {
         text: "You can send `/help all` to get a list of all commands.",
-        iconURL: interaction.user.avatarURL()!,
-      })
-      .setThumbnail(bot.user!.displayAvatarURL())
-      .setTitle(cmd.name.toUpperCase())
-      .addFields({
-        name: "Description",
-        value: cmd.description,
-      })
-      .addFields({
-        name: "Category",
-        value: String(cmd.category),
-      })
-      .addFields({
-        name: "Options",
-        value: cmd.options?.map((o) => `\`${o.name}\` - ${o.description}`).join("\n") || "None",
-      });
+        iconURL: interaction.user.displayAvatarURL(),
+      },
+      fields: [
+        {
+          name: "Description",
+          value: cmd.description,
+          inline: false,
+        },
+        {
+          name: "Category",
+          value: String(cmd.category),
+          inline: false,
+        },
+        {
+          name: "Options",
+          value: cmd.options?.map((o) => `\`${o.name}\` - ${o.description}`).join("\n") || "None",
+          inline: false,
+        },
+      ],
+      thumbnail: bot.user!.displayAvatarURL(),
+      interaction,
+    });
 
     await interaction.reply({ embeds: [embed] });
   }

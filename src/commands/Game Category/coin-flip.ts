@@ -1,6 +1,7 @@
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
-import { ApplicationCommandOptionType, CommandInteraction, EmbedBuilder } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Game")
@@ -25,19 +26,16 @@ export class CoinFlipCommand {
     const isEven = Math.trunc(genNum) % 2 === 0;
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("🎲 Coin Flip")
-          .addFields([
-            { name: "Result", value: isEven ? "Heads" : "Tails" },
-            { name: "Generated Number", value: String(genNum) },
-            { name: "Seed", value: String(seed) },
-          ])
-          .setColor([0, 255, 0])
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "none",
+          title: "🎲 Coin Flip",
+          fields: [
+            { name: "Result", value: isEven ? "Heads" : "Tails", inline: false },
+            { name: "Generated Number", value: String(genNum), inline: false },
+            { name: "Seed", value: String(seed), inline: false },
+          ],
+          interaction,
+        }),
       ],
     });
   }

@@ -10,6 +10,7 @@ import {
   TextChannel,
 } from "discord.js";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -36,15 +37,12 @@ export class RoleCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("I don't have permission to manage channels or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I don't have permission to manage channel or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
       return;
@@ -52,15 +50,12 @@ export class RoleCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Channel deleted successfully")
-          .setDescription(`Successfully deleted ${channel.name} channel`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Channel deleted successfully",
+          description: `Successfully deleted #${channel.name} channel`,
+          interaction,
+        }),
       ],
     });
   }
@@ -108,15 +103,12 @@ export class RoleCommand {
     if (type !== "text" && type !== "voice") {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Invalid input!")
-            .setDescription("Channel type must be either text or voice")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Invalid user input",
+            description: "Channel type must be either `text` or `voice`",
+            interaction,
+          }),
         ],
       });
       return;
@@ -136,15 +128,12 @@ export class RoleCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("I don't have permission to manage channel or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I don't have permission to manage channel or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
       return;
@@ -152,15 +141,12 @@ export class RoleCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Channel created successfully")
-          .setDescription(`Successfully created ${name} channel`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Channel created successfully",
+          description: `Successfully created #${name} channel`,
+          interaction,
+        }),
       ],
     });
   }

@@ -3,6 +3,7 @@ import { ApplicationCommandOptionType, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import axios from "axios";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Fun")
@@ -23,11 +24,13 @@ export class DeepfryCommand {
     const { data } = await axios.get(`https://nekobot.xyz/api/imagegen?type=deepfry&image=${avatar}`);
 
     await interaction.editReply({
-      files: [
-        {
-          attachment: data.message,
-          name: "deepfry.png",
-        },
+      embeds: [
+        templateEmbed({
+          type: "default",
+          title: "Successfully perform operation",
+          image: data.message,
+          interaction,
+        }),
       ],
     });
   }

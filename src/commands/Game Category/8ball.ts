@@ -1,6 +1,7 @@
 import { Discord, Slash, SlashOption } from "discordx";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction } from "discord.js";
 import { Category } from "@discordx/utilities";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Game")
@@ -32,17 +33,12 @@ export class Magic8Ball {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("🔮Magic 8 Ball")
-          .setDescription(
-            `**Question:** ${question}\n**Answer:** ${answers[Math.floor(Math.random() * answers.length)]}`,
-          )
-          .setColor(Colors.Blue)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "🔮Magic 8 Ball",
+          description: `**Question:** ${question}\n**Answer:** ${answers[Math.floor(Math.random() * answers.length)]}`,
+          interaction,
+        }),
       ],
     });
   }

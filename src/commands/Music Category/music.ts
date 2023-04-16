@@ -3,6 +3,7 @@ import { Category } from "@discordx/utilities";
 import { CommandInteraction, EmbedBuilder, Guild, GuildMember, TextBasedChannel } from "discord.js";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { Player, Queue } from "@discordx/music";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Music")
@@ -21,7 +22,13 @@ export class MusicCommand {
     this.musicPlayer.on("onStart", ([, track]) => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle(`🎧 Playing ${track.title}`).setURL(track.url || "")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: `Playing ${track.title}`,
+            }),
+          ],
         });
       }
     });
@@ -29,7 +36,13 @@ export class MusicCommand {
     this.musicPlayer.on("onFinishPlayback", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🎧 Finished playback")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Finished playback",
+            }),
+          ],
         });
       }
     });
@@ -37,7 +50,13 @@ export class MusicCommand {
     this.musicPlayer.on("onPause", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("⏸ Paused playback")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Paused playback",
+            }),
+          ],
         });
       }
     });
@@ -45,7 +64,13 @@ export class MusicCommand {
     this.musicPlayer.on("onResume", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("▶ Resumed playback")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Resumed playback",
+            }),
+          ],
         });
       }
     });
@@ -53,7 +78,13 @@ export class MusicCommand {
     this.musicPlayer.on("onError", ([, err, track]) => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("❌ Error").setDescription(`Error: ${err} | Track: ${track.title}`)],
+          embeds: [
+            templateEmbed({
+              type: "error",
+              title: "Music",
+              description: `Error ${err.name}. \n While playing ${track.title}`,
+            }),
+          ],
         });
       }
     });
@@ -61,7 +92,13 @@ export class MusicCommand {
     this.musicPlayer.on("onFinish", ([, track]) => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🎧 Finished").setDescription(`Finished ${track.title}`)],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: `Finished playing ${track.title}`,
+            }),
+          ],
         });
       }
     });
@@ -69,7 +106,13 @@ export class MusicCommand {
     this.musicPlayer.on("onLoop", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Looping")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Looping",
+            }),
+          ],
         });
       }
     });
@@ -77,7 +120,13 @@ export class MusicCommand {
     this.musicPlayer.on("onRepeat", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Repeating")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Repeating",
+            }),
+          ],
         });
       }
     });
@@ -85,7 +134,13 @@ export class MusicCommand {
     this.musicPlayer.on("onSkip", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("⏭ Skipped")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Skipped",
+            }),
+          ],
         });
       }
     });
@@ -94,7 +149,11 @@ export class MusicCommand {
       if (this.channel) {
         this.channel.send({
           embeds: [
-            new EmbedBuilder().setTitle("🎧 Track added").setDescription(`Added ${track[track.length - 1].title}`),
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: `Added ${track[track.length - 1].title}`,
+            }),
           ],
         });
       }
@@ -103,7 +162,13 @@ export class MusicCommand {
     this.musicPlayer.on("onLoopEnabled", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Loop enabled")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Loop enabled",
+            }),
+          ],
         });
       }
     });
@@ -111,7 +176,13 @@ export class MusicCommand {
     this.musicPlayer.on("onLoopDisabled", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Loop disabled")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Loop disabled",
+            }),
+          ],
         });
       }
     });
@@ -119,7 +190,13 @@ export class MusicCommand {
     this.musicPlayer.on("onRepeatEnabled", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Repeat enabled")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Repeat enabled",
+            }),
+          ],
         });
       }
     });
@@ -127,7 +204,13 @@ export class MusicCommand {
     this.musicPlayer.on("onRepeatDisabled", () => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Repeat disabled")],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: "Repeat disabled",
+            }),
+          ],
         });
       }
     });
@@ -135,7 +218,13 @@ export class MusicCommand {
     this.musicPlayer.on("onMix", ([, tracks]) => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔁 Mix").setDescription(`Added ${tracks.length} tracks`)],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Mix",
+              description: `Added ${tracks.length} tracks`,
+            }),
+          ],
         });
       }
     });
@@ -143,7 +232,13 @@ export class MusicCommand {
     this.musicPlayer.on("onVolumeUpdate", ([, volume]) => {
       if (this.channel) {
         this.channel.send({
-          embeds: [new EmbedBuilder().setTitle("🔊 Volume").setDescription(`Volume: ${volume}`)],
+          embeds: [
+            templateEmbed({
+              type: "default",
+              title: "Music",
+              description: `Volume updated to ${volume}`,
+            }),
+          ],
         });
       }
     });
@@ -168,14 +263,12 @@ export class MusicCommand {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("You must be in a voice channel to use this command")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "You must be in a voice channel in order to use this command",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -192,28 +285,24 @@ export class MusicCommand {
     if (!status) {
       await interaction.followUp({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("No songs found")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "Could not find any songs",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
     } else {
       await interaction.followUp({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("🎧 Playing")
-            .setDescription(`Playing ${status.title}`)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "default",
+            title: "Music",
+            description: `Playing ${status.title}`,
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -237,14 +326,12 @@ export class MusicCommand {
     if (!(interaction.member instanceof GuildMember) || !interaction.member.voice.channel) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("You must be in a voice channel to use this command")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "You must be in a voice channel in order to use this command",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -261,30 +348,25 @@ export class MusicCommand {
     if (!status) {
       await interaction.followUp({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("No songs found")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "Could not find any songs",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
     } else {
       await interaction.followUp({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("🎧 Playing")
-            .setDescription("The requested playlist has been added to the queue")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "default",
+            title: "Music",
+            description: "The requested playlist has been added to the queue",
+            interaction,
+          }),
         ],
-        ephemeral: true,
       });
     }
   }
@@ -295,16 +377,13 @@ export class MusicCommand {
     if (!interaction.guild || !(interaction.member instanceof GuildMember)) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("This command can only be used in a server")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "You must be in a guild in order to use this command",
+            interaction,
+          }),
         ],
-        ephemeral: true,
       });
       return;
     }
@@ -314,16 +393,13 @@ export class MusicCommand {
     if (!queue.isReady) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("I am not in a voice channel")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I am not in a voice channel",
+            interaction,
+          }),
         ],
-        ephemeral: true,
       });
       return;
     }
@@ -331,14 +407,12 @@ export class MusicCommand {
     if (interaction.member.voice.channel!.id !== queue.voiceChannelId) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("You are not in the same voice channel as me")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "You must be in the same voice channel as me in order to use this command",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -358,13 +432,12 @@ export class MusicCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("⏭ Skipped current track")
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: "Skipped current track",
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -380,13 +453,12 @@ export class MusicCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("🔀 Mixed tracks")
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: "Mixing tracks",
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -402,14 +474,12 @@ export class MusicCommand {
     if (queue.isPause) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("The queue is already paused")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The queue is already paused",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -419,13 +489,12 @@ export class MusicCommand {
     queue.pause();
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("⏸ Paused current track")
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: "Paused track",
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -441,14 +510,12 @@ export class MusicCommand {
     if (queue.isPlaying) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("The queue is already playing")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The queue is already playing",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -477,14 +544,12 @@ export class MusicCommand {
     if (!queue.isPlaying || !queue.currentTrack) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("There is no track playing")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "There is no music playing",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -495,14 +560,12 @@ export class MusicCommand {
     if (!state) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("Invalid seek time")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The requested time is out of bounds",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -521,13 +584,12 @@ export class MusicCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("👋 Left voice channel")
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: "Left voice channel",
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -543,13 +605,12 @@ export class MusicCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`🔁 Loop queue is now ${queue.loop ? "on" : "off"}`)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: `Loop queue is now ${queue.loop ? "on" : "off"}`,
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -565,13 +626,12 @@ export class MusicCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`🔁 Repeat track is now ${queue.repeat ? "on" : "off"}`)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: `Repeat track is now ${queue.repeat ? "on" : "off"}`,
+          interaction,
+        }),
       ],
       ephemeral: true,
     });
@@ -595,14 +655,12 @@ export class MusicCommand {
     if (volume < 0 || volume > 100) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("❌ Error")
-            .setDescription("Volume must be between 0 and 100")
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "Volume must be between 0 and 100",
+            interaction,
+          }),
         ],
         ephemeral: true,
       });
@@ -612,13 +670,12 @@ export class MusicCommand {
     queue.setVolume(volume);
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`🔊 Volume set to ${volume}%`)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Music",
+          description: `Volume set to ${volume}`,
+          interaction,
+        }),
       ],
       ephemeral: true,
     });

@@ -6,11 +6,10 @@ import {
   ButtonBuilder,
   ButtonInteraction,
   ButtonStyle,
-  Colors,
   CommandInteraction,
-  EmbedBuilder,
   GuildMember,
 } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -29,15 +28,12 @@ export class BanCommand {
     } catch (error) {
       await interaction.update({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("The user may not be bannable or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The user may not be bannable or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
         components: [],
       });
@@ -45,15 +41,12 @@ export class BanCommand {
     }
     await interaction.update({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("User banned")
-          .setDescription(`Successfully banned <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "User banned",
+          description: `Successfully banned <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``,
+          interaction,
+        }),
       ],
       components: [],
     });
@@ -84,15 +77,12 @@ export class BanCommand {
     if (!user.bannable) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("User not bannable")
-            .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "User not bannable",
+            description: "The user may have a higher role than me or I may not have the ban permission",
+            interaction,
+          }),
         ],
       });
       return;
@@ -100,16 +90,12 @@ export class BanCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Are you sure?")
-          .setDescription(`You are about to ban <@${user.id}>`)
-          .setColor(Colors.Red)
-          .setThumbnail(user.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Are you sure?",
+          description: `Are you sure you want to ban <@${user.id}>?`,
+          interaction,
+        }),
       ],
       components: [BanCommand.buttonRow],
     });

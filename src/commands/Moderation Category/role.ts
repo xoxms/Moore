@@ -1,7 +1,8 @@
 import { Discord, Guard, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category, PermissionGuard } from "@discordx/utilities";
-import { Colors, CommandInteraction, EmbedBuilder, GuildMember, RoleResolvable } from "discord.js";
+import { CommandInteraction, GuildMember, RoleResolvable } from "discord.js";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -35,30 +36,24 @@ export class RoleCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("I don't have permission to manage roles or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I don't have permission to manage roles or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
     }
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Role given successfully")
-          .setDescription(`Successfully gave ${role} to <@${user.id}>`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Role given successfully",
+          description: `Successfully gave ${role} to <@${user.id}>`,
+          interaction,
+        }),
       ],
     });
   }
@@ -87,30 +82,24 @@ export class RoleCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("I don't have permission to manage roles or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I don't have permission to manage roles or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
     }
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Role removed successfully")
-          .setDescription(`Successfully removed ${role} from <@${user.id}>`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "Role removed successfully",
+          description: `Successfully removed ${role} from <@${user.id}>`,
+          interaction,
+        }),
       ],
     });
   }

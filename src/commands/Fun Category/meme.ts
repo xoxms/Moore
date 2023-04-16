@@ -11,25 +11,19 @@ export class MemeCommand {
   public static buttonRow = new ActionRowBuilder<ButtonBuilder>().addComponents(
     new ButtonBuilder().setLabel("NEXT").setCustomId("fetch_next_memes").setStyle(ButtonStyle.Primary),
   );
+  private embed: any;
 
   public static async fetchMemes() {
     const { data } = await axios.get("https://meme-api.com/gimme");
     return data;
   }
 
-  private embed: any;
-
   @ButtonComponent({ id: "fetch_next_memes" })
   async handler(interaction: ButtonInteraction): Promise<void> {
     await interaction.deferUpdate();
     const data = await MemeCommand.fetchMemes();
     await interaction.editReply({
-      embeds: [
-        this.embed
-          .setTitle(data.title)
-          .setImage(data.url)
-          .setURL(data.postLink)
-      ],
+      embeds: [this.embed.setTitle(data.title).setImage(data.url).setURL(data.postLink)],
       components: [MemeCommand.buttonRow],
     });
   }
@@ -44,24 +38,22 @@ export class MemeCommand {
         title: data.title,
         image: data.url,
         url: data.postLink,
-        interaction
+        interaction,
       });
       await interaction.reply({
-        embeds: [
-          this.embed
-        ],
+        embeds: [this.embed],
         components: [MemeCommand.buttonRow],
       });
-    } catch(error) {
+    } catch (error) {
       await interaction.reply({
         embeds: [
           templateEmbed({
             type: "error",
             title: "Cannot fetch data",
             description: "Error fetching data from host",
-            interaction
-          })
-        ]
+            interaction,
+          }),
+        ],
       });
       return;
     }

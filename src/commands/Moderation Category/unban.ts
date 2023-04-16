@@ -1,6 +1,7 @@
 import { Discord, Guard, Slash, SlashOption } from "discordx";
 import { Category, PermissionGuard } from "@discordx/utilities";
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, Snowflake } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, Snowflake } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -22,15 +23,12 @@ export class UnbanCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("User may not exist or something else went *seriously* wrong")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "User may not exist or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
       return;
@@ -38,15 +36,12 @@ export class UnbanCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("User unbanned")
-          .setDescription(`Successfully unbanned <@${user}>`)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "User unbanned",
+          description: `Successfully unbanned <@${user}>`,
+          interaction,
+        }),
       ],
       components: [],
     });

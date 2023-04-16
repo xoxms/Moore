@@ -48,15 +48,7 @@ However, here are some of the features that will be implemented:
 - [x] Search commands
 - [x] Music commands
 - [x] NSFW commands
-- [ ] Economy system / Game commands
-
-With new addition that does not exist in the original project:
-
-- [ ] Web dashboard
-- [ ] Leveling system
-- [ ] Chatting Bot
-- [ ] Anti-spam system
-- [ ] And more TODOs...
+- [x] Economy system / Game commands
 
 ## Installation
 Please refer to [INSTALLATION.md](/INSTALLATION.md) for installation instructions.

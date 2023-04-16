@@ -21,8 +21,8 @@ export class XkcdCommand {
           title: `#${data.num} - ${data.title}`,
           description: data.alt || "...",
           image: data.img,
-          interaction
-        })
+          interaction,
+        }),
       ],
     });
   }

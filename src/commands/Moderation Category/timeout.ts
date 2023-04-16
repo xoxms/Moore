@@ -6,11 +6,10 @@ import {
   ButtonBuilder,
   ButtonInteraction,
   ButtonStyle,
-  Colors,
   CommandInteraction,
-  EmbedBuilder,
   GuildMember,
 } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -30,10 +29,12 @@ export class TimeoutCommand {
     } catch (error) {
       await interaction.update({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("The user may not able to be timeout or something else went *seriously* wrong")
-            .setColor(Colors.Red),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The user cannot be timeout or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
         components: [],
       });
@@ -42,12 +43,12 @@ export class TimeoutCommand {
 
     await interaction.update({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("User timeout")
-          .setDescription(
-            `Successfully timeout <@${this.selectedUser?.id}>\nDuration: \`${this.duration / 60000} minutes\``,
-          )
-          .setColor(Colors.Green),
+        templateEmbed({
+          type: "success",
+          title: "User timeout",
+          description: `Successfully timeout <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``,
+          interaction,
+        }),
       ],
       components: [],
     });
@@ -86,15 +87,12 @@ export class TimeoutCommand {
     if (!user.moderatable) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("User cannot be timeout")
-            .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "User not timeoutable",
+            description: "The user cannot be timeout",
+            interaction,
+          }),
         ],
       });
       return;
@@ -102,16 +100,12 @@ export class TimeoutCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Are you sure?")
-          .setDescription(`You are about to timeout <@${user.id}>`)
-          .setColor(Colors.Red)
-          .setThumbnail(user.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Are you sure?",
+          description: `Are you sure you want to timeout <@${user.id}>?`,
+          interaction,
+        }),
       ],
       components: [TimeoutCommand.buttonRow],
     });

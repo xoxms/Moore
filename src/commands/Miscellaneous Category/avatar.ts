@@ -1,6 +1,7 @@
-import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, User } from "discord.js";
+import { ApplicationCommandOptionType, CommandInteraction, User } from "discord.js";
 import { Discord, Slash, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Miscellaneous")
@@ -18,15 +19,12 @@ export class AvatarCommand {
   ): Promise<void> {
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`🖼 Avatar of ${user.username}`)
-          .setImage(user.avatarURL()!)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "none",
+          title: `🖼 Avatar of ${user.username}`,
+          image: user.avatarURL()!,
+          interaction,
+        }),
       ],
       ephemeral: true,
     });

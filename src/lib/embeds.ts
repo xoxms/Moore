@@ -1,6 +1,13 @@
-import { Colors, CommandInteraction, EmbedBuilder, EmbedField, EmbedFooterOptions } from "discord.js";
+import {
+  ButtonInteraction,
+  Colors,
+  CommandInteraction,
+  EmbedBuilder,
+  EmbedField,
+  EmbedFooterOptions,
+} from "discord.js";
 
-type TemplateEmbedType = "success" | "error" | "default";
+type TemplateEmbedType = "success" | "error" | "default" | "none";
 
 interface TemplateEmbedOptions {
   type: TemplateEmbedType;
@@ -12,7 +19,7 @@ interface TemplateEmbedOptions {
   thumbnail?: string;
   fields?: Array<EmbedField>;
   emote?: string;
-  interaction: CommandInteraction;
+  interaction?: CommandInteraction | ButtonInteraction;
 }
 
 export function templateEmbed({ ...opt }: TemplateEmbedOptions): EmbedBuilder {
@@ -20,17 +27,19 @@ export function templateEmbed({ ...opt }: TemplateEmbedOptions): EmbedBuilder {
     success: { emote: "✅", color: Colors.Green },
     error: { emote: "❌", color: Colors.Red },
     default: { emote: "ℹ️", color: Colors.Blue },
+    none: { emote: "", color: Colors.Default },
   };
 
   const embed = new EmbedBuilder()
     .setTitle(`${opt.emote || status[opt.type]?.emote} ${opt.title}`)
     .setColor(status[opt.type].color)
-    .setFooter({
-      text: `Requested by ${opt.interaction.user.tag}`,
-      iconURL: opt.interaction.user.displayAvatarURL(),
-    })
     .setTimestamp();
 
+  if (opt.interaction)
+    embed.setFooter({
+      text: `Requested by ${opt.interaction.user.tag}`,
+      iconURL: opt.interaction.user.displayAvatarURL(),
+    });
   if (opt.description) embed.setDescription(opt.description);
   if (opt.image) embed.setImage(opt.image);
   if (opt.url) embed.setURL(opt.url);

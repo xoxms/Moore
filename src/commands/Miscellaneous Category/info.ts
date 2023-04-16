@@ -1,6 +1,7 @@
 import { Discord, Slash, SlashGroup, SlashOption } from "discordx";
 import { Category } from "@discordx/utilities";
 import { ApplicationCommandOptionType, Colors, CommandInteraction, EmbedBuilder, GuildMember } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Miscellaneous")
@@ -23,9 +24,11 @@ export class InfoCommand {
   ): Promise<void> {
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle(`🙍‍♂ User ${member.user.username}`)
-          .addFields([
+        templateEmbed({
+          type: "none",
+          title: `🙍‍♂ User ${member.user.username}`,
+          image: member.user.displayAvatarURL(),
+          fields: [
             { name: "💳 Username", value: member.user.username, inline: true },
             { name: "✏ Nickname", value: member.nickname ? member.nickname : "No nickname", inline: true },
             { name: "🆔 UserID", value: member.user.id.toString(), inline: true },
@@ -40,15 +43,9 @@ export class InfoCommand {
               value: `<t:${Math.trunc(member.joinedTimestamp! / 1000)}:R>`,
               inline: true,
             },
-          ])
-          .setThumbnail(member.user.avatarURL())
-          .setColor(Colors.Blurple)
-          .setImage(member.user.banner ?? "https://i.redd.it/pyeuy7iyfw961.png")
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+          ],
+          interaction,
+        }),
       ],
     });
   }

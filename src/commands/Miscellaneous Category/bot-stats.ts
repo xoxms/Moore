@@ -1,9 +1,10 @@
 import { Category } from "@discordx/utilities";
 import { Discord, Slash, SlashGroup } from "discordx";
-import { Colors, CommandInteraction, EmbedBuilder, version } from "discord.js";
+import { CommandInteraction, version } from "discord.js";
 import ms from "ms";
 import os from "os";
 import { bot } from "../../index.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Miscellaneous")
@@ -14,10 +15,11 @@ export class BotStatsCommand {
   async server(interaction: CommandInteraction): Promise<void> {
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Bot server info")
-          .setThumbnail(bot.user!.displayAvatarURL())
-          .addFields([
+        templateEmbed({
+          type: "default",
+          title: "Bots server info",
+          thumbnail: bot.user!.displayAvatarURL(),
+          fields: [
             { name: "Platform", value: `${os.platform()} ${os.release()}`, inline: true },
             { name: "Architecture", value: os.arch(), inline: true },
             { name: "System Uptime", value: ms(ms(`${os.uptime()}s`)), inline: true },
@@ -29,14 +31,10 @@ export class BotStatsCommand {
             { name: "RAM Usage", value: `${((1 - os.freemem() / os.totalmem()) * 100).toFixed(2)}%`, inline: true },
             { name: "Discord.js Version", value: `v${version}`, inline: true },
             { name: "Node.js Version", value: process.version, inline: true },
-            { name: "Bots Version", value: "0.0.1", inline: true },
-          ])
-          .setColor([0, 153, 255])
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+            { name: "Bots Version", value: "1.0.0 (Magician)", inline: true },
+          ],
+          interaction,
+        }),
       ],
     });
   }
@@ -45,24 +43,23 @@ export class BotStatsCommand {
   async user(interaction: CommandInteraction): Promise<void> {
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Bot info")
-          .setColor(Colors.Blue)
-          .setDescription(
-            `
-            **Servers:** ${bot.guilds.cache.size}
-            **Members:** ${bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0)}
-            **Channels:** ${bot.channels.cache.size}
-            **Commands:** ${bot.application?.commands.cache.size}
-            **Uptime:** ${ms(bot.uptime!)}
-          `,
-          )
-          .setThumbnail(bot.user!.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Bots info",
+          thumbnail: bot.user!.displayAvatarURL(),
+          fields: [
+            { name: "Servers", value: bot.guilds.cache.size.toString(), inline: true },
+            {
+              name: "Members",
+              value: bot.guilds.cache.reduce((a, g) => a + g.memberCount, 0).toString(),
+              inline: true,
+            },
+            { name: "Channels", value: bot.channels.cache.size.toString(), inline: true },
+            { name: "Commands", value: String(bot.application?.commands.cache.size), inline: true },
+            { name: "Uptime", value: ms(bot.uptime!), inline: true },
+          ],
+          interaction,
+        }),
       ],
     });
   }

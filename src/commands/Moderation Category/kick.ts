@@ -6,11 +6,10 @@ import {
   ButtonBuilder,
   ButtonInteraction,
   ButtonStyle,
-  Colors,
   CommandInteraction,
-  EmbedBuilder,
   GuildMember,
 } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -29,10 +28,12 @@ export class KickCommand {
     } catch (error) {
       await interaction.update({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("The user may not be kickable or something else went *seriously* wrong")
-            .setColor(Colors.Red),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "The user may not be kickable or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
         components: [],
       });
@@ -41,15 +42,12 @@ export class KickCommand {
 
     await interaction.update({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("User kicked")
-          .setDescription(`Successfully kicked <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``)
-          .setColor(Colors.Green)
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "success",
+          title: "User kicked",
+          description: `Successfully kicked <@${this.selectedUser?.id}>\nReason: \`${this.reason}\``,
+          interaction,
+        }),
       ],
       components: [],
     });
@@ -80,15 +78,12 @@ export class KickCommand {
     if (!user.kickable) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("User not kickable")
-            .setDescription("The user may have a higher role than me or I may not have the ban permission")
-            .setColor(Colors.Red)
-            .setFooter({
-              text: `Requested by ${interaction.user.tag}`,
-              iconURL: interaction.user.displayAvatarURL(),
-            })
-            .setTimestamp(),
+          templateEmbed({
+            type: "error",
+            title: "User not kickable",
+            description: "The user is not kickable",
+            interaction,
+          }),
         ],
       });
       return;
@@ -96,16 +91,12 @@ export class KickCommand {
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Are you sure?")
-          .setDescription(`You are about to kick <@${user.id}>`)
-          .setColor(Colors.Red)
-          .setThumbnail(user.displayAvatarURL())
-          .setFooter({
-            text: `Requested by ${interaction.user.tag}`,
-            iconURL: interaction.user.displayAvatarURL(),
-          })
-          .setTimestamp(),
+        templateEmbed({
+          type: "default",
+          title: "Are you sure?",
+          description: `Are you sure you want to kick <@${user.id}>?`,
+          interaction,
+        }),
       ],
       components: [KickCommand.buttonRow],
     });

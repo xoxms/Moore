@@ -2,6 +2,7 @@ import { Discord, Guard, Slash, SlashOption } from "discordx";
 import { Category, PermissionGuard } from "@discordx/utilities";
 import { ApplicationCommandOptionType } from "discord-api-types/v10";
 import { Colors, CommandInteraction, EmbedBuilder, TextChannel } from "discord.js";
+import { templateEmbed } from "../../lib/embeds.js";
 
 @Discord()
 @Category("Moderation")
@@ -23,20 +24,24 @@ export class DeleteMessageCommand {
     } catch (error) {
       await interaction.reply({
         embeds: [
-          new EmbedBuilder()
-            .setTitle("Something went wrong!")
-            .setDescription("I don't have permission to delete message or something else went *seriously* wrong")
-            .setColor(Colors.Red),
+          templateEmbed({
+            type: "error",
+            title: "Something went wrong!",
+            description: "I don't have permission to manage messages or something else went *seriously* wrong",
+            interaction,
+          }),
         ],
       });
     }
 
     await interaction.reply({
       embeds: [
-        new EmbedBuilder()
-          .setTitle("Message deleted")
-          .setDescription(`Successfully deleted \`${amount}\` messages`)
-          .setColor(Colors.Green),
+        templateEmbed({
+          type: "success",
+          title: "Message deleted successfully",
+          description: `Successfully deleted ${amount} messages`,
+          interaction,
+        }),
       ],
     });
   }
